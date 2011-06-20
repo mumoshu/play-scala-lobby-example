@@ -1,39 +1,11 @@
 Listening for transport dt_socket at address: 8000
-10:10:22,585 INFO  ~ Starting /home/mumoshu/Projects/play-scala-lobby-example
-10:10:22,590 INFO  ~ Module scala is available (/home/mumoshu/Library/Play/play-1.2.2RC2/modules/scala-0.9.x)
-10:10:24,838 INFO  ~ Scala support is active
-10:10:24,838 INFO  ~ Precompiling ...
-10:10:32,942 ERROR ~ Cannot start in PROD mode with errors
+10:27:37,089 INFO  ~ Starting /home/mumoshu/Sandbox/play-scala-lobby-example
+10:27:37,093 INFO  ~ Module scala is available (/home/mumoshu/Library/Play/play-1.2.x/modules/scala-0.9.x)
+10:27:39,260 INFO  ~ Scala support is active
+10:27:39,261 INFO  ~ Precompiling ...
+10:27:47,449 ERROR ~ Cannot start in PROD mode with errors
 java.lang.StackOverflowError
 	at scala.tools.nsc.typechecker.Typers$Typer.typed1(Typers.scala:3839)
-	at scala.tools.nsc.transform.Erasure$Eraser.liftedTree1$1(Erasure.scala:663)
-	at scala.tools.nsc.transform.Erasure$Eraser.typed1(Erasure.scala:662)
-	at scala.tools.nsc.typechecker.Typers$Typer.typed(Typers.scala:4203)
-	at scala.tools.nsc.typechecker.Typers$Typer.typedQualifier(Typers.scala:4271)
-	at scala.tools.nsc.typechecker.Typers$Typer.typedQualifier(Typers.scala:4279)
-	at scala.tools.nsc.transform.Erasure$Eraser.adaptMember(Erasure.scala:624)
-	at scala.tools.nsc.transform.Erasure$Eraser.liftedTree1$1(Erasure.scala:663)
-	at scala.tools.nsc.transform.Erasure$Eraser.typed1(Erasure.scala:662)
-	at scala.tools.nsc.typechecker.Typers$Typer.typed(Typers.scala:4203)
-	at scala.tools.nsc.typechecker.Typers$Typer$$anonfun$typedApply$1$1.apply(Typers.scala:3362)
-	at scala.tools.nsc.typechecker.Typers$Typer$$anonfun$typedApply$1$1.apply(Typers.scala:3362)
-	at scala.tools.nsc.typechecker.Typers$Typer.silent(Typers.scala:722)
-	at scala.tools.nsc.typechecker.Typers$Typer.typedApply$1(Typers.scala:3362)
-	at scala.tools.nsc.typechecker.Typers$Typer.typed1(Typers.scala:4049)
-	at scala.tools.nsc.transform.Erasure$Eraser.liftedTree1$1(Erasure.scala:663)
-	at scala.tools.nsc.transform.Erasure$Eraser.typed1(Erasure.scala:662)
-	at scala.tools.nsc.typechecker.Typers$Typer.typed(Typers.scala:4203)
-	at scala.tools.nsc.typechecker.Typers$Typer.typedQualifier(Typers.scala:4271)
-	at scala.tools.nsc.typechecker.Typers$Typer.typedQualifier(Typers.scala:4279)
-	at scala.tools.nsc.transform.Erasure$Eraser.adaptMember(Erasure.scala:624)
-	at scala.tools.nsc.transform.Erasure$Eraser.liftedTree1$1(Erasure.scala:663)
-	at scala.tools.nsc.transform.Erasure$Eraser.typed1(Erasure.scala:662)
-	at scala.tools.nsc.typechecker.Typers$Typer.typed(Typers.scala:4203)
-	at scala.tools.nsc.typechecker.Typers$Typer$$anonfun$typedApply$1$1.apply(Typers.scala:3362)
-	at scala.tools.nsc.typechecker.Typers$Typer$$anonfun$typedApply$1$1.apply(Typers.scala:3362)
-	at scala.tools.nsc.typechecker.Typers$Typer.silent(Typers.scala:722)
-	at scala.tools.nsc.typechecker.Typers$Typer.typedApply$1(Typers.scala:3362)
-	at scala.tools.nsc.typechecker.Typers$Typer.typed1(Typers.scala:4049)
 	at scala.tools.nsc.transform.Erasure$Eraser.liftedTree1$1(Erasure.scala:663)
 	at scala.tools.nsc.transform.Erasure$Eraser.typed1(Erasure.scala:662)
 	at scala.tools.nsc.typechecker.Typers$Typer.typed(Typers.scala:4203)
@@ -719,6 +691,6 @@ java.lang.StackOverflowError
 ~ |  __/|_|\____|\__ (_)
 ~ |_|            |__/   
 ~
-~ play! 1.2.2RC2, http://www.playframework.org
+~ play! 1.2.x, http://www.playframework.org
 ~
 
