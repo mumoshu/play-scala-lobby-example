@@ -1,0 +1,20 @@
+@(rooms: collection.mutable.Set[models.Room], username: String)
+
+@main("Listing Rooms") {
+    @form(controllers.Rooms.show _) {
+        <p>
+            <label for="title">Title: </label>
+            <input type="text" name="title" id="title" />
+        </p>
+        <input type="hidden" name="username" value="@username" />
+        <p>
+            <input type="submit" value="Join" />
+        </p>
+    }
+
+    <ul>
+        @rooms.map { room =>
+            <li><a href="@action(controllers.Rooms.show(room.title, username))">Room @room.title</a></li>
+        }
+    </ul>
+}
