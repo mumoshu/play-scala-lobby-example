@@ -16,6 +16,12 @@ object Rooms extends Controller {
     html.index(Room.all, username)
   }
 
+  def create() = {
+    val title = params.get("title")
+    val username = params.get("username")
+    html.show(title, username)
+  }
+
   def show(title: String, username: String) = {
     html.show(title, username)
   }

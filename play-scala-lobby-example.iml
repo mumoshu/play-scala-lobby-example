@@ -29,28 +29,8 @@
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library name="PlayFramework Dependecies">
-        <CLASSES>
-          <root url="file://$USER_HOME$/Library/Play/play-1.2.1/framework/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$USER_HOME$/Library/Play/play-1.2.1/framework/lib" recursive="false" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Library/Play/play-1.2.1/framework/play-1.2.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$USER_HOME$/Library/Play/play-1.2.1/framework/src" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="Play Scala 0.9.1" level="application" />
+    <orderEntry type="library" name="Play 1.2.1" level="application" />
+    <orderEntry type="library" name="Scala 0.9.1" level="application" />
   </component>
 </module>
 
