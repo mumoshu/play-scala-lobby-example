@@ -11,6 +11,7 @@ case class Room(title: String) {
   }
 
   def join(user: User) {
+    users.add(user)
     publish(Join(user))
   }
 

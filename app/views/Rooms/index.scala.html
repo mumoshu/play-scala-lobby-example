@@ -14,7 +14,7 @@
 
     <ul>
         @rooms.map { room =>
-            <li><a href="@action(controllers.Rooms.show(room.title, username))">Room @room.title</a></li>
+            <li><a href="@action(controllers.Rooms.show(room.title, username))">@room.title (@room.users.size 人)</a></li>
         }
     </ul>
 }
