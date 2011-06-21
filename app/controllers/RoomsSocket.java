@@ -42,7 +42,7 @@ public class RoomsSocket extends WebSocketController {
             Logger.info("%s, %s", method, arguments);
 
             if (method.equals("join")) {
-
+                room.join(user);
             } else if (method.equals("say")) {
                 String what = null;
                 if (arguments.size() > 0) {
