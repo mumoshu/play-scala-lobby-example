@@ -1,15 +1,16 @@
 package controllers;
 
+import models.*;
 import play.Logger;
 import play.libs.F;
 
+import static play.libs.F.Matcher.ClassOf;
+
 import static play.mvc.Http.WebSocketEvent.TextFrame;
+import static play.mvc.Http.WebSocketEvent.SocketClosed;
 
 import play.mvc.Http;
 import play.mvc.WebSocketController;
-import models.Room;
-import models.User;
-import models.Event;
 import scala.Option;
 
 import java.util.Arrays;
@@ -24,6 +25,8 @@ public class RoomsSocket extends WebSocketController {
             room = Room.create(title);
         }
         F.EventStream<Event> events = room.events().eventStream();
+
+        room.join(user);
 
         while (inbound.isOpen()) {
             play.libs.F.Either<Http.WebSocketEvent, Event> e = await(F.Promise.waitEither(
@@ -55,6 +58,24 @@ public class RoomsSocket extends WebSocketController {
                         Logger.warn("Nothing to say!");
                     }
                 }
+            }
+
+            for (Join join : ClassOf(Join.class).match(e._2)) {
+                outbound.send("joined:%s", join.user().name());
+            }
+
+            for (Leave leave : ClassOf(Leave.class).match(e._2)) {
+                outbound.send("left:%s", leave.user().name());
+            }
+
+            for (Say say : ClassOf(Say.class).match(e._2)) {
+                outbound.send("said:%s:%s", say.user().name(), say.what());
+            }
+
+            for (Http.WebSocketClose webSocketClose : SocketClosed.match(e._1)) {
+                room.leave(user);
+                Logger.info("Disconnecting user: %s", user.name());
+                disconnect();
             }
 
             Logger.info(e.toString());
