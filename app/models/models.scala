@@ -4,8 +4,38 @@ import javax.persistence.Entity
 import play.db.anorm._
 import play.db.anorm.SqlParser._
 import play.db.anorm.defaults._
+import play.libs.{Crypto, Codec}
+import play.utils.Scala.MayErr
 
-case class User(name: String)
+/**
+ * The user.
+ * Passwords are not kept as plain text but hashed.
+ * Also, emails are encrypted.
+ */
+case class User(
+  id: Pk[Long],
+  name: String,
+  password: String,
+  email: String
+)
+
+object User extends Magic[User] {
+  /**
+   * Create and save a User.
+   */
+  def join(name: String, password: String, email: String): User = create(
+    User(NotAssigned, name, Crypto.passwordHash(password), Crypto.encryptAES(email))
+  )
+
+  /**
+   * Find the user with the specified email and password.
+   */
+  def findByEmailAndPassword(email: String, password: String): Option[User] =
+    find("email={email} and password={password}").on(
+      "email" -> Crypto.encryptAES(email),
+      "password" -> Crypto.passwordHash(password)
+    ).first()
+}
 
 case class Game(title: String) {
   // WebSocketの接続先アドレス
