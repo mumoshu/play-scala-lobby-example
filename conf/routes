@@ -5,6 +5,8 @@
 # Home page
 GET     /                                       Application.index
 
+GET     /rooms                                  Rooms.index
+
 WS      /ws/rooms/join                          RoomsSocket.join
 
 # Ignore favicon requests
