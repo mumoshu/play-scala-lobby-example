@@ -35,6 +35,16 @@ object User extends Magic[User] {
       "email" -> Crypto.encryptAES(email),
       "password" -> Crypto.passwordHash(password)
     ).first()
+
+  def findByIdWithAchievements(id: Long) =
+    SQL("""
+      select * from User u
+      join UserAchievement ua on ua.userId = u.id
+      left join Achievement a on a.id = ua.achievementId
+      where u.id = {userId}
+    """)
+      .on("userId" -> id)
+      .as(User ~< (Achievement*) ?)
 }
 
 case class Game(title: String) {
@@ -55,6 +65,14 @@ case class Achievement(
 )
 
 object Achievement extends Magic[Achievement]
+
+case class UserAchievement(
+  id: Pk[Long],
+  userId: Long,
+  achievementId: Long
+)
+
+object UserAchievement extends Magic[UserAchievement]
 
 abstract class Event(val `type`: String)
 case class Join(val user: User) extends Event("join")
