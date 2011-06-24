@@ -5,7 +5,7 @@
 
 <div id="thread">
     <script type="text/html" id="message_tmpl">
-        <% if(event.type == 'message') { %>
+        <% if(event.type == 'said') { %>
             <div class="message <%= event.user == '${user}' ? 'you' : '' %>">
                 <h2><%= event.user %></h2>
                 <p>
@@ -13,7 +13,7 @@
                 </p>
             </div>
         <% } %>
-        <% if(event.type == 'join') { %>
+        <% if(event.type == 'joined') { %>
             <div class="message notice">
                 <h2></h2>
                 <p>
@@ -21,7 +21,7 @@
                 </p>
             </div>
         <% } %>
-        <% if(event.type == 'leave') { %>
+        <% if(event.type == 'left') { %>
             <div class="message notice">
                 <h2></h2>
                 <p>
@@ -48,7 +48,7 @@
 <script type="text/javascript">
 
     // Create a socket
-    var socket = new WebSocket('ws://localhost:12345/ws/rooms/join?title=@title&username=@user')
+    var socket = new WebSocket('ws://localhost:9000/ws/rooms/join?title=@title&username=@user')
 
     // Display a message
     var display = function(event) {
@@ -58,16 +58,23 @@
 
     // Message received on the socket
     socket.onmessage = function(event) {
-        var parts = /^([^:]+):([^:]+)(:(.*))?$/.exec(event.data)
+//        var parts = /^([^:]+):([^:]+)(:(.*))?$/.exec(event.data)
+//        display({
+//            type: parts[1],
+//            user: parts[2],
+//            text: parts[4]
+//        })
+        var parts = event.data.split(":");
         display({
-            type: parts[1],
-            user: parts[2],
-            text: parts[4]
-        })
+                    type: parts[0],
+                    user: parts[1],
+                    text: parts[2]
+                });
+        console.log(parts);
     }
 
     $('#send').click(function(e) {
-        var message = $('#message').val()
+        var message = 'say:' + $('#message').val()
         $('#message').val('')
         socket.send(message)
     });
