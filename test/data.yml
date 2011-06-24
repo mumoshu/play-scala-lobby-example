@@ -5,3 +5,13 @@
 #   email: bob@gmail.com
 #   password: secret
 #   fullname: Bob
+
+#Achievement(achievement1):
+#  title: _achievement1_
+#  description: _description_of_achievement1_
+
+- !!models.Achievement
+  id: !!Id[Long] 1
+  title: _titleOfAchievement1_
+  description: _descriptionOfAchievement1_
+  imageUrl : _imageUrlOfAchievement1_
