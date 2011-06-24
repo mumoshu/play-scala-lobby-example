@@ -1,12 +1,12 @@
 @(rooms: collection.mutable.Set[models.Room], username: String)
 
 @main("Listing Rooms") {
+    <h1>yabage</h1>
     @form(controllers.Rooms.create) {
         <p>
             <label for="title">Title: </label>
             <input type="text" name="title" id="title" />
         </p>
-        <input type="hidden" name="username" value="@username" />
         <p>
             <input type="submit" value="Join" />
         </p>
