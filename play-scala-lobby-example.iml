@@ -15,6 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tmp/generated" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/test-result" />
     </content>
     <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -30,7 +31,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Play 1.2.1" level="application" />
-    <orderEntry type="library" name="Scala 0.9.1" level="application" />
+    <orderEntry type="library" name="Play Scala 0.9.x" level="application" />
   </component>
 </module>
 
