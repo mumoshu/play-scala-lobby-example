@@ -7,8 +7,6 @@ import mvc.Http.WebSocketEvent
 import models._
 import play.libs.F.Promise
 
-
-
 object Rooms extends Controller {
   import views.Rooms._
 

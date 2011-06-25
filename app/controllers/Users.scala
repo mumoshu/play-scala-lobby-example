@@ -1,10 +1,20 @@
 package controllers
 
-import play.mvc._
 import models.User
 import play.cache.Cache
 import play.mvc.Scope.Session
 import play.data.validation.Validation
+import play.mvc._
+
+// This does not compile with the exception below.
+// Oops: UnexpectedException
+// An unexpected error occured caused by exception UnexpectedException:
+// While applying class play.classloading.enhancers.LocalvariablesNamesEnhancer
+//
+//object UsersAPI extends Controller with ReadableResource[Long, User] {
+//  protected val manifestForResourceClass = manifest[User]
+//  protected val parser = User
+//}
 
 object Users extends Controller with ReadableUserResource {
   import views.Users.html
