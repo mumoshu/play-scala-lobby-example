@@ -18,11 +18,11 @@ case class Found(user: User) extends Result(200)
 case class NotFoundError(error: String = "resource_not_found") extends Result(404)
 case class GetResourcesResponse(users: List[User]) extends Result(200)
 
-trait ReadableResource[K, T <: ScalaObject] {
+trait ReadableResource[T <: ScalaObject] {
   self: Controller =>
   // Override the below at least.
-  protected def parser(): Magic[T]
-  protected implicit val manifestForResourceClass: Manifest[T]
+  val resourceParser: Magic[T]
+  protected implicit val resourceManifest: Manifest[T]
 
   // You can provide an another serializer overriding val serializer.
   // "FieldSerializer[T]()" this causes an ExceptionInitializerError.
@@ -67,23 +67,23 @@ trait ReadableResource[K, T <: ScalaObject] {
     new RenderJson(write(Map("key" -> "val")))
   }
 
-  def getResource(id: Long) = {
-    val option = parser.find("id={id}").on("id" -> id).as(parser ?)
+  def getResource(id: String) = {
+    val option = resourceParser.find("id={id}").on("id" -> id).as(resourceParser ?)
     val text = option match {
       case Some(resource) => {
-        val t = write(Map("status" -> 200, toLowerSnakeCase(parser.analyser.name) -> resource))
+        val t = write(Map("status" -> 200, toLowerSnakeCase(resourceParser.analyser.name) -> resource))
         Logger.info(resource.toString)
         t
       }
       case None => write(Map("status" -> 404, "error" -> "resource_not_found"))
     }
-    new RenderJson(text)
+    Json(text)
   }
 
   def getResources() = {
-    val resources = SQL("select * from " + parser.analyser.name).as(parser *)
-    val text = write(Map("status" -> 200, pluralize(parser.analyser.name) -> resources))
-    new RenderJson(text)
+    val resources = SQL("select * from " + resourceParser.analyser.name).as(resourceParser *)
+    val text = write(Map("status" -> 200, pluralize(resourceParser.analyser.name) -> resources))
+    Json(text)
   }
 }
 

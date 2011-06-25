@@ -7,6 +7,7 @@ import play.data.validation.Validation
 import play.mvc._
 import java.lang.Long
 import net.liftweb.json.FieldSerializer
+import play.db.anorm.defaults.Magic
 
 // This does not compile with the exception below.
 // Oops: UnexpectedException
@@ -15,12 +16,12 @@ import net.liftweb.json.FieldSerializer
 //
 //object UsersAPI extends Controller with ReadableResource[Long, User] {
 //  protected val manifestForResourceClass = manifest[User]
-//  protected val parser = User
+//  protected val resourceParser = User
 //}
-object UsersAPI extends Controller with ReadableResource[Long, User] {
-  protected val manifestForResourceClass: Manifest[User] = manifest[User]
+object UsersAPI extends Controller with ReadableResource[User] {
+  val resourceManifest: Manifest[User] = manifest[User]
   // You need to explicitly provide return type or you will get an exception.
-  protected def parser(): play.db.anorm.defaults.Magic[User] = User
+  val resourceParser: Magic[User] = User
 }
 
 object Users extends Controller with ReadableUserResource {
