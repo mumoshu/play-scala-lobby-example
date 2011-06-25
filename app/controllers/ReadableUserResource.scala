@@ -21,7 +21,8 @@ case class GetResourcesResponse(users: List[User]) extends Result(200)
 trait ReadableResource[T <: ScalaObject] {
   self: Controller =>
   // Override the below at least.
-  val resourceParser: Magic[T]
+//  val resourceParser: Magic[T]
+  object resourceParser extends Magic[T]
   protected implicit val resourceManifest: Manifest[T]
 
   // You can provide an another serializer overriding val serializer.

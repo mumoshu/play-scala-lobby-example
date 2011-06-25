@@ -21,7 +21,7 @@ import play.db.anorm.defaults.Magic
 object UsersAPI extends Controller with ReadableResource[User] {
   val resourceManifest: Manifest[User] = manifest[User]
   // You need to explicitly provide return type or you will get an exception.
-  val resourceParser: Magic[User] = User
+//  val resourceParser: Magic[User] = User
 }
 
 object Users extends Controller with ReadableUserResource {
