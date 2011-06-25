@@ -14,6 +14,7 @@
   id: !!Id[Long] 1
   title: _titleOfAchievement1_
   description: _descriptionOfAchievement1_
+  score: 123
   imageUrl : _imageUrlOfAchievement1_
 
 - !!models.User

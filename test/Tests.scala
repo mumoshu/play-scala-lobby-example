@@ -13,7 +13,7 @@ import play.db.anorm.SqlParser._
 class BasicTests extends UnitFlatSpec with ShouldMatchers {
 
     it should "create and retrieve an Achievement" in {
-      val created = Achievement.create(Achievement(NotAssigned, "title", "descr", "imageUrl"))
+      val created = Achievement.create(Achievement(NotAssigned, "title", "descr", 100, "imageUrl"))
       val a = Achievement.find("title={title}")
         .on("title" -> "title")
         .first()

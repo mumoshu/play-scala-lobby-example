@@ -61,6 +61,7 @@ case class Achievement(
   id: Pk[Long],
   var title: String,
   var description: String,
+  var score: Int,
   var imageUrl: String
 )
 
