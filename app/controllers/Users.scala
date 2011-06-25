@@ -19,7 +19,10 @@ import play.db.anorm.defaults.Magic
 //  protected val resourceParser = User
 //}
 object UsersAPI extends Controller with ReadableResource[User] {
-  val resourceManifest: Manifest[User] = manifest[User]
+  // You get a NullPointerException at
+  //   play.db.anorm.Analyser$class.$init$(Anorm.scala:600)
+  // when you write the below as implicit, like 'implicit val resourceManifest = manifest[User]'
+  val resourceManifest = manifest[User]
   // You need to explicitly provide return type or you will get an exception.
 //  val resourceParser: Magic[User] = User
 }
