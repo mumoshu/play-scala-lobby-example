@@ -9,6 +9,7 @@ import play.db.anorm.defaults._
 import play.mvc.Controller
 import scala.Some
 import xsbti.api.Protected
+import play.mvc.results.RenderJson
 
 class Result(val status: Int)
 case class Query(id: Long)
@@ -18,7 +19,6 @@ case class GetResourcesResponse(users: List[User]) extends Result(200)
 
 trait ReadableResource[K, T] {
   self: Controller =>
-
   // Override the below at least.
   protected def parser(): Magic[T]
   protected implicit val manifestForResourceClass: Manifest[T]
@@ -56,13 +56,13 @@ trait ReadableResource[K, T] {
       case Some(resource) => write(Map("status" -> 200, toLowerSnakeCase(parser.analyser.name) -> resource))
       case None => write(Map("status" -> 404, "error" -> "resource_not_found"))
     }
-    Json(text)
+    new RenderJson(text)
   }
 
   def getResources() = {
     val resources = SQL("select * from " + parser.analyser.name).as(parser *)
     val text = write(Map("status" -> 200, pluralize(parser.analyser.name) -> resources))
-    Json(text)
+    new RenderJson(text)
   }
 }
 
