@@ -3,3 +3,14 @@
 require:
     - play
     - play -> scala 0.9.1
+    - net.liftweb -> lift-json_2.8.0 2.4-SNAPSHOT:
+        exclude:
+            - org.scala-lang -> scala-compiler *
+            - org.scala-lang -> scala-library *
+
+repositories:
+    - liftweb:
+         type: iBiblio
+         root: "http://scala-tools.org/repo-snapshots/"
+         contains:
+             - net.liftweb -> *
