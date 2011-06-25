@@ -11,7 +11,7 @@ case class Query(id: Long)
 case class Found(user: User) extends Result(200)
 case class NotFoundError(error: String = "resource_not_found") extends Result(404)
 
-trait UsersAPI {
+trait ReadableResource {
   self: Controller =>
 
 //  implicit val formats = Serialization.formats(ShortTypeHints(List(
