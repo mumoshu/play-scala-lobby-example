@@ -10,6 +10,7 @@ import play.mvc.Controller
 import scala.Some
 import xsbti.api.Protected
 import play.mvc.results.RenderJson
+import play.Logger
 
 class Result(val status: Int)
 case class Query(id: Long)
@@ -17,20 +18,32 @@ case class Found(user: User) extends Result(200)
 case class NotFoundError(error: String = "resource_not_found") extends Result(404)
 case class GetResourcesResponse(users: List[User]) extends Result(200)
 
-trait ReadableResource[K, T] {
+trait ReadableResource[K, T <: ScalaObject] {
   self: Controller =>
   // Override the below at least.
   protected def parser(): Magic[T]
   protected implicit val manifestForResourceClass: Manifest[T]
 
   // You can provide an another serializer overriding val serializer.
-  protected val serializer = FieldSerializer[T]()
+  // "FieldSerializer[T]()" this causes an ExceptionInitializerError.
+  // You need to write as "FieldSerializer[Manifest[T]]()"
+  //
+  // In lift-json examples, you write like this.
+  // <code>
+  // case class WildDog()
+  // ...
+  // FieldSerializer[WildDog]()
+  // </code>
+  // Maybe it works because Scala itself implicitly converts WildDog to Manifest[WildDog]
+  // for FieldSerializer's type parameter.
+  // But it's not the case while generic programming.
+//  protected val serializer = FieldSerializer[Manifest[T]]()
 
   // You can provide an another plural for the resource name,
   // or singular + 's' is used by default.
   protected val plural: Option[String] = None
 
-  protected implicit val jsonFormats = DefaultFormats + serializer + new PkSerializer
+  protected implicit val jsonFormats = DefaultFormats + FieldSerializer[AnyRef]() + new PkSerializer
 
   protected def toLowerSnakeCase(s: String) = {
     s.replaceAll(
@@ -50,10 +63,18 @@ trait ReadableResource[K, T] {
     }
   }
 
+  def getMap = {
+    new RenderJson(write(Map("key" -> "val")))
+  }
+
   def getResource(id: Long) = {
     val option = parser.find("id={id}").on("id" -> id).as(parser ?)
     val text = option match {
-      case Some(resource) => write(Map("status" -> 200, toLowerSnakeCase(parser.analyser.name) -> resource))
+      case Some(resource) => {
+        val t = write(Map("status" -> 200, toLowerSnakeCase(parser.analyser.name) -> resource))
+        Logger.info(resource.toString)
+        t
+      }
       case None => write(Map("status" -> 404, "error" -> "resource_not_found"))
     }
     new RenderJson(text)

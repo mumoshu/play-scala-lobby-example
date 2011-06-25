@@ -6,6 +6,7 @@ import play.mvc.Scope.Session
 import play.data.validation.Validation
 import play.mvc._
 import java.lang.Long
+import net.liftweb.json.FieldSerializer
 
 // This does not compile with the exception below.
 // Oops: UnexpectedException
@@ -17,7 +18,7 @@ import java.lang.Long
 //  protected val parser = User
 //}
 object UsersAPI extends Controller with ReadableResource[Long, User] {
-  protected val manifestForResourceClass = manifest[User]
+  protected val manifestForResourceClass: Manifest[User] = manifest[User]
   // You need to explicitly provide return type or you will get an exception.
   protected def parser(): play.db.anorm.defaults.Magic[User] = User
 }
