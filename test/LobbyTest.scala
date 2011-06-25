@@ -2,6 +2,7 @@ import java.io.File
 import models._
 import org.scalatest.matchers.ShouldMatchers
 import collection.JavaConversions._
+import play.Logger
 import play.test.{Fixtures, FunctionalFlatSpec, FunctionalTest, Yaml}
 
 class LobbyTest extends FunctionalFlatSpec with ShouldMatchers {
@@ -34,5 +35,18 @@ class LobbyTest extends FunctionalFlatSpec with ShouldMatchers {
     val response = GET("/api/users/1")
     response shouldBeOk()
     response contentShouldBe ("""{"user":{"id":1,"name":"_nameOfUser1_","password":"+h2/6IXSRxB8cxvP/yfikA==","email":"455f9d5d9a5883f8c4e34eb58d970745"},"status":200}""")
+  }
+
+  it should "retrieve users in JSON" in {
+    Fixtures.deleteDatabase()
+    Yaml[List[Any]]("data.yml").foreach {
+      _ match {
+        case u: User => User.create(u)
+        case _ => ()
+      }
+    }
+    val response = GET("/api/users")
+    response shouldBeOk()
+    Logger.info(getContent(response))
   }
 }

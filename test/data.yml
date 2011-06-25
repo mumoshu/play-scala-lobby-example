@@ -23,6 +23,12 @@
   email: 455f9d5d9a5883f8c4e34eb58d970745
   password: +h2/6IXSRxB8cxvP/yfikA==
 
+- !!models.User
+  id: !!Id[Long] 2
+  name: _nameOfUser2_
+  email: aa
+  password: bb
+
 - !!models.UserAchievement
   id: !!Id[Long] 1
   userId: 1

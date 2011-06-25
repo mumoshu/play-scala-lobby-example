@@ -4,12 +4,15 @@ import models.User
 import net.liftweb.json.Serialization.{read, write}
 import play.mvc.Controller
 import net.liftweb.json._
-import play.db.anorm.{Id, NotAssigned, Pk}
+import play.db.anorm.{Id, NotAssigned, Pk, SQL}
+import controllers.GetResourcesResponse
+import play.db.anorm.TableC._
 
 class Result(val status: Int)
 case class Query(id: Long)
 case class Found(user: User) extends Result(200)
 case class NotFoundError(error: String = "resource_not_found") extends Result(404)
+case class GetResourcesResponse(users: List[User]) extends Result(200)
 
 trait ReadableResource {
   self: Controller =>
@@ -26,6 +29,11 @@ trait ReadableResource {
       case _ => write(NotFoundError())
     }
     Json(text)
+  }
+
+  def getResources() = {
+    val users = SQL("select * from " + User.analyser.name).as(User *)
+    Json(write(GetResourcesResponse(users)))
   }
 }
 

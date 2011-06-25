@@ -6,6 +6,7 @@
 GET     /                                       Application.index
 
 GET     /api/users/{id}                         Users.getResource
+GET     /api/users/?                            Users.getResources
 
 GET     /rooms                                  Rooms.index
 
