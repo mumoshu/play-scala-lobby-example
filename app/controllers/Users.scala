@@ -6,7 +6,7 @@ import play.cache.Cache
 import play.mvc.Scope.Session
 import play.data.validation.Validation
 
-object Users extends Controller with ReadableResource {
+object Users extends Controller with ReadableUserResource {
   import views.Users.html
 
   def join() = html.join()
