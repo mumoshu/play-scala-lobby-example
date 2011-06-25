@@ -9,7 +9,28 @@
 #{selenium}
     open('/rooms')
     assertNotTitle('Application error')
-    select(id=name)
-    click(id=login)
-    assertNotTitle('Application error')
+#{/selenium}
+
 #{selenium}
+    open('/users/join')
+    assertNotTitle('Application error')
+    submit(xpath=//form)
+    waitForPageToLoad(3000)
+    assertTextPresent('Name is required.')
+    assertTextPresent('Password is required.')
+    assertTextPresent('Email is required.')
+    assertTitle('Join')
+#{/selenium}
+
+#{selenium}
+    open('/users/join')
+    type(xpath=//form//input[1], 'myName')
+    type(id=password, 'myPassword')
+    type(id=email, 'myName@my.email.com')
+    submit(xpath=//form)
+    waitForPageToLoad(3000)
+    assertTitle('New user created')
+    assertTextPresent('myName')
+    assertTextPresent('myName@my.email.com')
+#{/selenium}
+

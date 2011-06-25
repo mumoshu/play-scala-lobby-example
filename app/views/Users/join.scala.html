@@ -1,0 +1,35 @@
+@()(
+    implicit
+    params: play.mvc.Scope.Params,
+    errors: Map[String, play.data.validation.Error]
+)
+
+@main("Join") {
+    <h1>Join yabage</h1>
+    @form(controllers.Users.create) {
+        @errors.map { error =>
+            <p class="error">
+                @error._2
+            </p>
+        }
+        
+        <p>
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" value="@params.get("name")" />
+        </p>
+
+        <p>
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" />
+        </p>
+
+        <p>
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="email" value="@params.get("email")" />
+        </p>
+
+        <p>
+            <input type="submit" value="OK" />
+        </p>
+    }
+}

@@ -1,0 +1,18 @@
+@(user: models.User)
+
+@main("New user created") {
+    <a href="@action(controllers.Rooms.index(user.name))">See chat rooms</a>
+
+    <hl />
+    <ul>
+        <li>
+            <h2>Name: </h2>
+            <p>@user.name</p>
+        </li>
+
+        <li>
+            <h2>Email: </h2>
+            <p>@play.libs.Crypto.decryptAES(user.email)</p>
+        </li>
+    </ul>
+}
