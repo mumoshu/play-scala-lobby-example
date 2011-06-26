@@ -1,22 +1,25 @@
 @(rooms: collection.mutable.Set[models.Room], username: String)
 
-@main("Listing Rooms") {
+@mobile("JOIN A ROOM") {
     <h1>yabage</h1>
     @form(controllers.Rooms.create) {
-        <p>
+        <ul data-role="listview" data-inset="true">
+        <li data-role="fieldcontain">
             <label for="title">Title: </label>
             <input type="text" name="title" id="title" />
-        </p>
-        <p>
+        </li>
+        <li data-role="fieldcontain">
             <label for="username">ニックネーム: </label>
             <input type="text" name="username" id="username" value="@username" />
-        </p>
-        <p>
+        </li>
+        <li data-role="fieldcontain">
             <input type="submit" value="Join" />
-        </p>
+        </li>
+        </ul>
     }
 
-    <ul>
+    <ul data-role="listview">
+        <li data-role="list-divider">ACTIVE ROOMS</li>
         @rooms.map { room =>
             <li><a href="@action(controllers.Rooms.show(room.title, username))">@room.title (@room.users.size 人)</a></li>
         }
