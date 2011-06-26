@@ -8,6 +8,9 @@ GET     /                                       Application.index
 GET     /api/users/{id}                         Users.getResource
 GET     /api/users/?                            Users.getResources
 
+POST    /sessions                               Sessions.create
+GET     /login/?                                Application.login
+
 GET     /rooms                                  Rooms.index
 
 WS      /ws/rooms/join                          RoomsSocket.join

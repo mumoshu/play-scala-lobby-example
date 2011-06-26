@@ -4,3 +4,6 @@
 email=Email
 password=Password
 validation.required=%s is required.
+passwordConfirmation=Password confirmation
+validation.valid=%s not valid
+emailOrPassword=email or password

@@ -1,0 +1,30 @@
+@()(implicit
+    params: play.mvc.Scope.Params,
+    errors: Map[String, play.data.validation.Error]
+)
+
+@mobile("ヤバゲーログイン") {
+    @form(controllers.Sessions.create) {
+        @errors.map { error =>
+            <p class="error">
+                @error._2
+            </p>
+        }
+        <ul data-role="listview" data-inset="true">
+            <li data-role="fieldcontain">
+                <label for="email">メールアドレス(ログインID): </label>
+                <input type="email" name="email" id="email" value="@params.get("email")" />
+            </li>
+            <li data-role="fieldcontain">
+                <label for="password">パスワード: </label>
+                <input type="password" name="password" id="password" />
+            </li>
+            <li>
+                <input type="submit" value="送信" />
+            </li>
+        </ul>
+        <p>
+            <a href="@action(controllers.Users.join)">ユーザ登録はコチラ</a>
+        </p>
+    }
+}
