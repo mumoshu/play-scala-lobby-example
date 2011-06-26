@@ -1,10 +1,14 @@
 @()(implicit
     params: play.mvc.Scope.Params,
-    errors: Map[String, play.data.validation.Error]
+    errors: Map[String, play.data.validation.Error],
+    flash: play.mvc.Scope.Flash
 )
 
 @mobile("ヤバゲーログイン") {
     @form(controllers.Sessions.create) {
+        <p class="message">
+            @flash.get("message")
+        </p>
         @errors.map { error =>
             <p class="error">
                 @error._2

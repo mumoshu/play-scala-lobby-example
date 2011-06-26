@@ -1,7 +1,7 @@
 @(user: models.User)
 
 @main("New user created") {
-    <a href="@action(controllers.Rooms.index(user.name))">See chat rooms</a>
+    <a href="@action(controllers.Rooms.index())">See chat rooms</a>
 
     <hl />
     <ul>

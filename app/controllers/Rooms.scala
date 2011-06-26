@@ -7,11 +7,11 @@ import mvc.Http.WebSocketEvent
 import models._
 import play.libs.F.Promise
 
-object Rooms extends Controller {
+object Rooms extends Controller with Secure {
   import views.Rooms._
 
-  def index(username: String) = {
-    html.index(Room.all, username)
+  def index() = {
+    html.index(Room.all, user.name)
   }
 
   def create() = {
