@@ -18,10 +18,13 @@ case class Found(user: User) extends Result(200)
 case class NotFoundError(error: String = "resource_not_found") extends Result(404)
 case class GetResourcesResponse(users: List[User]) extends Result(200)
 
-trait ReadableResource[T <: ScalaObject] {
+trait ReadableResource[T] {
   self: Controller =>
   // Override the below at least.
   implicit val resourceManifest: Manifest[T]
+
+  // You can change the name of Pk overriding this
+  val resourceIdName = "id"
 
 //  val resourceParser: Magic[T]
   object resourceParser extends Magic[T]
@@ -70,7 +73,7 @@ trait ReadableResource[T <: ScalaObject] {
   }
 
   def getResource(id: String) = {
-    val option = resourceParser.find("id={id}").on("id" -> id).as(resourceParser ?)
+    val option = resourceParser.find(resourceIdName + "={id}").on("id" -> id).as(resourceParser ?)
     val text = option match {
       case Some(resource) => {
         val t = write(Map("status" -> 200, toLowerSnakeCase(resourceParser.analyser.name) -> resource))
