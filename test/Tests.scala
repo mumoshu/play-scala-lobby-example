@@ -1,4 +1,4 @@
-import models.{UserAchievement, User, Achievement}
+import models.{WebSocketAuthorization, UserAchievement, User, Achievement}
 import play._
 import libs.Crypto
 import play.test._
@@ -94,6 +94,18 @@ class BasicTests extends UnitFlatSpec with ShouldMatchers {
     val firstAchievement = achievements(0)
     firstAchievement.title should be ("_titleOfAchievement1_")
     firstAchievement.description should be ("_descriptionOfAchievement1_")
+  }
+
+  "WebSocketAuthorization" should ("retrieve a record by userId") in {
+    Fixtures.deleteDatabase()
+    Yaml[List[Any]]("data.yml").foreach {
+      _ match {
+        case w: WebSocketAuthorization => WebSocketAuthorization.create(w)
+        case _ => ()
+      }
+    }
+    val w = WebSocketAuthorization.findByUserId(1).get
+    w should not be (null)
   }
     
     it should "run this dumb test" in {

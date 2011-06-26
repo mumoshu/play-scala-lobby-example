@@ -75,9 +75,18 @@ case class UserAchievement(
 
 object UserAchievement extends Magic[UserAchievement]
 
+case class WebSocketAuthorization(
+  userId: Pk[Long],
+  sessionId: String
+)
+
+object WebSocketAuthorization extends Magic[WebSocketAuthorization] {
+  def findByUserId(userId: Long) = find("userId={userId}").on("userId" -> userId).first()
+  def findBySessionId(sessionId: String) = find("sessionId={sessionId}").on("sessionId" -> sessionId).first()
+}
+
 abstract class Event(val `type`: String)
 case class Join(val user: User) extends Event("join")
 case class Leave(val user: User) extends Event("leave")
 case class Say(val user: User, what: String) extends Event("message")
 case class Play(val game: Game) extends Event("play")
-
