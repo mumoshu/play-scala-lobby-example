@@ -11,7 +11,7 @@ object Rooms extends Controller with Secure {
   import views.Rooms._
 
   def index() = {
-    html.index(Room.all, user.name)
+    html.index(Room.all, user)
   }
 
   def create() = {

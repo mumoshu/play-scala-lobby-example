@@ -1,7 +1,10 @@
-@(rooms: collection.mutable.Set[models.Room], username: String)
+@(rooms: collection.mutable.Set[models.Room], user: models.User)
 
 @mobile("JOIN A ROOM") {
     <h1>yabage</h1>
+    <p>
+        You are logged in as @user.name <img src="@asset("public/" + user.iconPath)" />
+    </p>
     @form(controllers.Rooms.create) {
         <ul data-role="listview" data-inset="true">
         <li data-role="fieldcontain">
@@ -10,7 +13,7 @@
         </li>
         <li data-role="fieldcontain">
             <label for="username">ニックネーム: </label>
-            <input type="text" name="username" id="username" value="@username" />
+            <input type="text" name="username" id="username" value="@user.name" />
         </li>
         <li data-role="fieldcontain">
             <input type="submit" value="Join" />
@@ -21,7 +24,7 @@
     <ul data-role="listview">
         <li data-role="list-divider">ACTIVE ROOMS</li>
         @rooms.map { room =>
-            <li><a href="@action(controllers.Rooms.show(room.title, username))">@room.title (@room.users.size 人)</a></li>
+            <li><a href="@action(controllers.Rooms.show(room.title, user.name))">@room.title (@room.users.size 人)</a></li>
         }
     </ul>
 }

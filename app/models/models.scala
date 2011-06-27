@@ -6,6 +6,7 @@ import play.db.anorm.SqlParser._
 import play.db.anorm.defaults._
 import play.libs.{Crypto, Codec}
 import play.utils.Scala.MayErr
+import play.mvc.Router
 
 /**
  * The user.
@@ -18,7 +19,11 @@ case class User(
   password: String,
   email: String,
   iconPath: String
-)
+) {
+  def iconUrl(): String = {
+    Router.reverse(play.Play.getVirtualFile("public" + iconPath))
+  }
+}
 
 object User extends Magic[User] {
   /**
