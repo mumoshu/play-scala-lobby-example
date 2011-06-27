@@ -26,11 +26,13 @@
           <root url="file://$MODULE_DIR$/lib" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Sources/lift-json/lift-json_2.8.0-2.4-SNAPSHOT-sources.jar!/" />
+        </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Play 1.2.1" level="application" />
+    <orderEntry type="library" name="Play 1.2.x" level="application" />
     <orderEntry type="library" name="Play Scala 0.9.x" level="application" />
   </component>
 </module>
