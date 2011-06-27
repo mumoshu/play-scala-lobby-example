@@ -5,6 +5,7 @@ CREATE TABLE User (
   name varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
+  iconPath varchar(255) NOT NULL,
   PRIMARY KEY (id)
 );
 

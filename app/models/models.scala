@@ -16,7 +16,8 @@ case class User(
   id: Pk[Long],
   name: String,
   password: String,
-  email: String
+  email: String,
+  iconPath: String
 )
 
 object User extends Magic[User] {
@@ -24,7 +25,7 @@ object User extends Magic[User] {
    * Create and save a User.
    */
   def join(name: String, password: String, email: String): User = create(
-    User(NotAssigned, name, Crypto.passwordHash(password), Crypto.encryptAES(email))
+    User(NotAssigned, name, Crypto.passwordHash(password), Crypto.encryptAES(email), "")
   )
 
   /**
@@ -46,6 +47,10 @@ object User extends Magic[User] {
       .on("userId" -> id)
       .as(User ~< (Achievement*) ?)
 }
+
+case class Avatar(id: Pk[Long], name: String, iconPath: String)
+
+object Avatar extends Magic[Avatar]
 
 case class Game(title: String) {
   // WebSocketの接続先アドレス

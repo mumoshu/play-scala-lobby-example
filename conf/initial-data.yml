@@ -1,0 +1,38 @@
+- !!models.User
+  id: !!Id[Long] 1
+  # mumoshu@example.com
+  email: 19aec61e694c70df8e167dee59f48d670961e27e8b4570bc737a0ca8ed9e3065
+  name: mumoshu
+  # 1234
+  password: gdyb21LQTcIANtvYMT7QVQ==
+  iconPath: images/avatars/madoka_m.gif
+
+- !!models.Avatar
+  id: !!Id[Long] 1
+  name: madoka_m
+  iconPath: images/avatars/madoka_m.gif
+
+- !!models.Avatar
+  id: !!Id[Long] 2
+  name: sayaka_m
+  iconPath: images/avatars/sayaka_m.gif
+
+- !!models.Avatar
+  id: !!Id[Long] 3
+  name: mami_m
+  iconPath: images/avatars/mami_m.gif
+
+- !!models.Avatar
+  id: !!Id[Long] 4
+  name: kyoko_m
+  iconPath: images/avatars/kyoko_m.gif
+
+- !!models.Avatar
+  id: !!Id[Long] 5
+  name: homura_m
+  iconPath: images/avatars/homura_m.gif
+
+- !!models.Avatar
+  id: !!Id[Long] 6
+  name: charlotte
+  iconPath: images/avatars/charlotte.gif
