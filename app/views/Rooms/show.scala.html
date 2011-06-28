@@ -1,7 +1,7 @@
 @(title: String, user: String)
 
-@main("Chat room") {
-<h1>WebSocket — You are now chatting as @user <a href="@action(controllers.Rooms.index())">Leave the chat room</a></h1>
+@main(title + " - yabage") {
+<h1>You are now chatting as @user <a href="@action(controllers.Rooms.index())">Leave the chat room</a></h1>
 
 <div id="thread">
     <script type="text/html" id="message_tmpl">
