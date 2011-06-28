@@ -22,6 +22,7 @@ public class RoomsSocket extends WebSocketController {
         Option<Room> roomOption = Room.findByTitle(title);
         Room room = roomOption.isDefined() ? roomOption.get() : null;
         if (room == null) {
+            Logger.info("Room created: %s", title);
             room = Room.create(title);
         }
         F.EventStream<Event> events = room.events().eventStream();
