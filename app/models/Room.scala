@@ -37,5 +37,5 @@ object Room {
     room
   }
   def findByTitle(title: String): Option[Room] = rooms.find { _.title == title }
-  def all = rooms
+  def all = rooms.toList
 }
