@@ -35,3 +35,8 @@
   id: !!Id[Long] 1
   userId: 1
   achievementId: 1
+
+- !!models.OAuth2Session
+  id: !!Id[Long] 1
+  userId: 1
+  accessToken: _accessToken_

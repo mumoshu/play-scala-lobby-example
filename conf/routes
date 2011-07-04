@@ -5,6 +5,9 @@
 # Home page
 GET     /                                       Application.index
 
+GET     /api/users/{userId}/achievements/?      OAuth2.find
+POST    /api/users/{userId}/achievements/?      OAuth2.create
+
 GET     /api/users/{id}                         Users.getResource
 GET     /api/users/?                            Users.getResources
 
@@ -14,6 +17,8 @@ GET     /login/?                                Application.login
 GET     /rooms                                  Rooms.index
 
 WS      /ws/rooms/join                          RoomsSocket.join
+
+POST    /token                                  OAuth2.token
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

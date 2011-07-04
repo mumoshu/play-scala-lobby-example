@@ -15,7 +15,7 @@ class bootstrap extends Job {
     val exampleEmail = "mumoshu@example.com"
     Logger.info("AES encryption for %s is %s", exampleEmail, Crypto.encryptAES(exampleEmail))
 
-    if (Avatar.count().single() == 0) {
+    if (Avatar.count().single() == 0 && User.count().single() == 0) {
       Yaml[List[Any]]("initial-data.yml").foreach {
         case user:User => User.create(user)
         case avatar:Avatar => Avatar.create(avatar)

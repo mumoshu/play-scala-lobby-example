@@ -1,6 +1,5 @@
 package models
 
-import java.lang.Long
 import play.db.anorm._
 import play.db.anorm.defaults.Magic
 
