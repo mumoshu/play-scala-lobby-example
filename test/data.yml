@@ -17,6 +17,8 @@
   score: 123
   imageUrl : _imageUrlOfAchievement1_
 
+# email: _emailOfUser1_
+# password: _passwordOfUser1_
 - !!models.User
   id: !!Id[Long] 1
   name: _nameOfUser1_
