@@ -7,6 +7,7 @@ import play.db.anorm.defaults._
 import play.libs.{Crypto, Codec}
 import play.utils.Scala.MayErr
 import play.mvc.Router
+import play.db.DB
 
 /**
  * The user.
