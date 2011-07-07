@@ -8,8 +8,8 @@ GET     /                                       Application.index
 GET     /api/users/{userId}/achievements/?      OAuth2.find
 POST    /api/users/{userId}/achievements/?      OAuth2.create
 
-GET     /api/users/{id}                         Users.getResource
-GET     /api/users/?                            Users.getResources
+GET     /api/{controller}/{id}                  {controller}.getResource
+GET     /api/{controller}/?                     {controller}.getResources
 
 POST    /sessions                               Sessions.create
 GET     /login/?                                Application.login

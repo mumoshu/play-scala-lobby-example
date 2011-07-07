@@ -9,8 +9,11 @@ import play.db.anorm.defaults._
 /**
  * ゲーム1つにつき１つだけ存在する「ロビー」
  */
-object Lobbies extends Controller with Secure {
+object Lobbies extends Controller with Secure with ReadableResource[Lobby] {
   import views.Lobbies._
+
+  val resourceManifest = manifest[Lobby]
+  override val plural = Option("lobbies")
 
   def newLobby() = {
     html.newLobby()
