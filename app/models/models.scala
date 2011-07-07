@@ -27,6 +27,16 @@ case class User(
 }
 
 object User extends Magic[User] {
+  def findByAccessToken(accessToken: String): Option[User] = {
+    SQL("""
+      select * from oauth2session s
+      join user u
+      on s.userId = u.id
+      where s.accessToken = {accessToken}
+    """).on("accessToken" -> accessToken)
+    .as(User ?)
+  }
+
   /**
    * Create and save a User.
    */

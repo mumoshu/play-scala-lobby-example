@@ -12,4 +12,9 @@ case class OAuth2Session(
   val accessToken: String
 )
 
-object OAuth2Session extends Magic[OAuth2Session]
+object OAuth2Session extends Magic[OAuth2Session] {
+  def continueOrCreate(session: OAuth2Session): OAuth2Session = {
+    val success = SQL("delete from oauth2session where userId = {userId}").on("userId" -> session.userId).execute()
+    OAuth2Session.create(session)
+  }
+}

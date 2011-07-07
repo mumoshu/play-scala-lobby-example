@@ -17,21 +17,21 @@ import play.Logger
 trait RestTestsHelpers {
   def requestWithAuthorization(header: Header) = {
     val request = new Request()
-    request.headers.put("Authorization", header)
+    request.headers.put("authorization", header)
     request
   }
 }
 
 trait RestTestsConstants {
   val userId = 1L
-  val accessToken = "_accessToken_"
+  val accessToken = "accessToken1"
   val oauth2Header = new Header(
     "Authorization",
-    "OAuth2 " + accessToken
+    "OAuth " + accessToken
   )
   val invalidOauth2Header = new Header(
     "Authorization",
-    "OAuth2 invalidAccessToken"
+    "OAuth invalidAccessToken"
   )
   val emptyFiles = Map.empty[String, File]
   val achievementId = "1"
@@ -76,8 +76,9 @@ class RestTests extends FunctionalFlatSpec with ShouldMatchers with RestTestsHel
       .as(OAuth2Session *)
     oauth2Sessions.size should be (1)
 
+    play.Logger.info("TokenResponse: %s", tokenResponse)
     val session = OAuth2Session.find("accessToken = {accessToken}")
-      .on("accessToken" -> tokenResponse.accessToken)
+      .on("accessToken" -> tokenResponse.accessToken.get)
       .as(OAuth2Session ?)
     session should not be (None)
   }
@@ -131,6 +132,6 @@ class RestTests extends FunctionalFlatSpec with ShouldMatchers with RestTestsHel
       Map("achievementId" -> achievementId),
       emptyFiles
     )
-    response.status should be (401)
+    response.status should be (400)
   }
 }

@@ -33,7 +33,37 @@ object UsingJson {
     new controllers.PkSerializer
 }
 
-object OAuth2 extends Controller {
+trait OAuth {
+  self: Controller =>
+
+  var user: Option[User] = None
+
+  @Before(unless = Array("OAuth2.token"))
+  def ensureAuthorized() = {
+    import controllers.UsingJson._
+
+    val authorization = Option(request.headers.get("authorization"))
+    val regex = "OAuth (.+)".r
+
+    user = authorization.map(_.value) match {
+      case Some(regex(accessToken)) =>
+        User.findByAccessToken(accessToken)
+      case _ =>
+        None
+    }
+
+    play.Logger.info("url: %s", request.url)
+    play.Logger.info("Authorization: %s", authorization)
+    play.Logger.info("User: %s", user)
+
+    if (user isDefined)
+      Continue
+    else
+      Error(400, write(oauth.InvalidRequest()))
+  }
+}
+
+object OAuth2 extends Controller with OAuth {
   import controllers.UsingJson._
 
   @Before
@@ -60,7 +90,7 @@ object OAuth2 extends Controller {
         case Some(user) => {
           val userId = user.id()
           val accessToken = new BigInteger(100, new SecureRandom()).toString(36)
-          val session = OAuth2Session.create(OAuth2Session(NotAssigned, userId, accessToken))
+          val session = OAuth2Session.continueOrCreate(OAuth2Session(NotAssigned, userId, accessToken))
           val response = TokenResponse(None, None, Option(accessToken))
           Json(write(response))
         }
