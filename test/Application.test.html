@@ -64,7 +64,7 @@
     click(id=send)
     pause(500)
     assertValue(id=message, '')
-    assertTextPresent('Hello!')
+    waitForTextPresent('Hello!')
 
     *{ Create a room. }*
 
@@ -72,4 +72,22 @@
     submitAndWait(//form)
     assertNotTitle('Application error')
     assertTextPresent('mumoshu')
+#{/selenium}
+
+#{selenium}
+    *{ Login as the demo user. }*
+
+    open('/login')
+    type(id=email, 'mumoshu@example.com')
+    type(id=password, '1234')
+    clickAndWait(//input[@type="submit"])
+
+    *{ List lobbies. }*
+
+    open('/lobbies')
+    assertNotTitle('Application error')
+    assertTextPresent('lobby1')
+    clickAndWait(link=lobby1)
+    assertNotTitle('Application error')
+
 #{/selenium}

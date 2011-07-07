@@ -19,6 +19,7 @@ class bootstrap extends Job {
       Yaml[List[Any]]("initial-data.yml").foreach {
         case user:User => User.create(user)
         case avatar:Avatar => Avatar.create(avatar)
+        case lobby:Lobby => Lobby.create(lobby)
         case _ => ()
       }
     }

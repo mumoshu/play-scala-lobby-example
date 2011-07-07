@@ -1,0 +1,12 @@
+@(user: models.User, lobbies: List[models.Lobby])
+
+@mobile("ロビーをさがす") {
+    <div>こんにちは @user.name さん</div>
+    <ul data-role="listview" data-inset="true">
+        @for(lobby <- lobbies) {
+            <li data-role="fieldcontain">
+                <a href="@action(controllers.Lobbies.show(lobby.id()))">@lobby.title</a>
+            </li>
+        }
+    </ul>
+}

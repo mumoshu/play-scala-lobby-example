@@ -36,3 +36,7 @@
   id: !!Id[Long] 6
   name: charlotte
   iconPath: images/avatars/charlotte.gif
+
+- !!models.Lobby
+  id: !!Id[Long] 1
+  title: lobby1

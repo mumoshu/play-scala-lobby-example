@@ -16,6 +16,11 @@ object Lobbies extends Controller with Secure {
     html.newLobby()
   }
 
+  def index() = {
+    val lobbies = Lobby.find().as(Lobby *)
+    html.index(user, lobbies)
+  }
+
   def create() = {
     val lobbyTitle = params.get("lobby.title")
 
