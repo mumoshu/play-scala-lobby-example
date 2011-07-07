@@ -32,6 +32,9 @@ object Users extends Controller with ReadableUserResource {
 
   def join() = html.join()
 
+  /**
+   * 新しいユーザを登録してログインするアクション
+   */
   def create() = {
     val name = params.get("name")
     val password = params.get("password")

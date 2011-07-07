@@ -7,7 +7,13 @@ import play.cache.Cache
 import play.data.validation.{Error, Validation}
 import play.Logger
 
+/**
+ * Cookieセッションの作成に関するController
+ */
 object Sessions extends Controller {
+  /**
+   * メアドとパスワードで認証して、ログインするアクション
+   */
   def create() = {
     val email = params.get("email")
     val password = params.get("password")

@@ -11,6 +11,10 @@ trait Secure {
 
   var user: User = null
 
+  /**
+   * Cookieセッションが存在してログイン状態であることを強制する.
+   * ログインしていない場合はログインページへ転送する。
+   */
   @Before
   def ensureLogin() = {
     val userOption: Option[User] = Cache.get(session.getId + "-user")

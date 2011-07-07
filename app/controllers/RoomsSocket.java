@@ -16,6 +16,9 @@ import scala.Option;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * WebSocketによるチャットサーバ
+ */
 public class RoomsSocket extends WebSocketController {
     public static void join(String title, String username) {
         User user = User.join(username, "password", "email");
