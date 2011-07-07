@@ -1,0 +1,16 @@
+@(user: models.User, rooms: List[models.Room], lobby: models.Lobby)
+
+@main("ロビー") {
+    <div>こんにちは @user.name さん</div>
+    @chat(user.name, lobby.title)
+    @form(controllers.Rooms.create) {
+        <ul data-role="listview" data-inset="true">
+            <li data-role="fieldcontain">
+                <label for="title">ルームタイトル</label>
+                <input type="text" name="title" id="title" />
+            </li>
+            <input type="hidden" name="username" value="@user.name" />
+            <input type="submit" id="create" value="ルーム作成" />
+        </ul>
+    }
+}

@@ -4,6 +4,7 @@ import play.mvc.{Before, Controller}
 import models.User
 import play.cache.Cache
 import scala.Some
+import play.Logger
 
 trait Secure {
   self: Controller =>
@@ -16,6 +17,7 @@ trait Secure {
     userOption match {
       case Some(user) => {
         this.user = user
+        Logger.info("Logged in as: %s", user)
         Continue
       }
       case None => {

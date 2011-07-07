@@ -1,0 +1,15 @@
+@()
+
+@main("ロビーをつくる") {
+    @form(controllers.Lobbies.create) {
+        <ul data-role="listview" data-inset="true">
+            <li data-role="fieldcontain">
+                <label for="lobby.title">ロビータイトル</label>
+                <input type="text" name="lobby.title" id="lobby.title" />
+            </li>
+            <li>
+                <input type="submit" value="作成" />
+            </li>
+        </ul>
+    }
+}

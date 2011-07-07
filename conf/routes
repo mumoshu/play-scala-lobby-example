@@ -18,6 +18,9 @@ GET     /rooms                                  Rooms.index
 
 WS      /ws/rooms/join                          RoomsSocket.join
 
+GET     /lobbies/new                            Lobbies.newLobby
+GET     /lobbies/{<[0-9]+>id}/?                    Lobbies.show
+
 POST    /token                                  OAuth2.token
 
 # Ignore favicon requests

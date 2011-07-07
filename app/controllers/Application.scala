@@ -1,6 +1,7 @@
 package controllers
 
 import play._
+import cache.Cache
 import libs.F.ArchivedEventStream
 import mvc._
 import mvc.Http.WebSocketEvent
@@ -18,6 +19,11 @@ object Application extends Controller {
 
   def login() = {
     html.login()
+  }
+
+  def logout() = {
+    Cache.delete(session.getId + "-user")
+    Redirect("login")
   }
     
 }

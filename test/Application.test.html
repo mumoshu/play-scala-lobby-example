@@ -7,6 +7,15 @@
 #{/selenium}
 
 #{selenium}
+    *{ Login as the demo user. }*
+
+    open('/login')
+    type(id=email, 'mumoshu@example.com')
+    type(id=password, '1234')
+    clickAndWait(//input[@type="submit"])
+
+    *{ List rooms. }*
+    
     open('/rooms')
     assertNotTitle('Application error')
 #{/selenium}
@@ -34,3 +43,33 @@
     assertTextPresent('myName@my.email.com')
 #{/selenium}
 
+#{selenium}
+    *{ Login as the demo user. }*
+
+    open('/login')
+    type(id=email, 'mumoshu@example.com')
+    type(id=password, '1234')
+    clickAndWait(//input[@type="submit"])
+
+    *{ Create a lobby. }*
+
+    open('/lobbies/new')
+    type(id=lobby.title, 'lobbyTitle')
+    submitAndWait(//form)
+    assertTextPresent('mumoshu')
+
+    *{ Say something. }*
+
+    type(id=message, 'Hello!')
+    click(id=send)
+    pause(500)
+    assertValue(id=message, '')
+    assertTextPresent('Hello!')
+
+    *{ Create a room. }*
+
+    type(id=room.name)
+    submitAndWait(//form)
+    assertNotTitle('Application error')
+    assertTextPresent('mumoshu')
+#{/selenium}
