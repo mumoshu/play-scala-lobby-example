@@ -36,7 +36,7 @@
     type(xpath=//form//input[1], 'myName')
     type(id=password, 'myPassword')
     type(id=email, 'myName@my.email.com')
-    select(id=icon,label=madoka.+)
+    select(id=icon, label=madoka.+)
     submit(xpath=//form)
     waitForPageToLoad(3000)
     assertTitle('New user created')
@@ -69,10 +69,11 @@
 
     *{ Create a room. }*
 
-    type(id=room.name)
+    type(id=title, 'MyRoom')
     submitAndWait(//form)
     assertNotTitle('Application error')
     assertTextPresent('mumoshu')
+    assertTextPresent('MyRoom')
 #{/selenium}
 
 #{selenium}

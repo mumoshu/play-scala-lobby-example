@@ -3,6 +3,7 @@
 @main(title + " - yabage") {
 <h1>You are now chatting as @user <a href="@action(controllers.Rooms.index())">Leave the chat room</a></h1>
 
+<h1>@title</h1>
 <div id="thread">
     <script type="text/html" id="message_tmpl">
         <% if(event.type == 'said') { %>
