@@ -1,13 +1,15 @@
 package controllers
 
-import models.User
+import models.{User, Avatar}
 import play.cache.Cache
 import play.mvc.Scope.Session
 import play.data.validation.Validation
 import play.mvc._
 import java.lang.Long
 import net.liftweb.json.FieldSerializer
-import play.db.anorm.defaults.Magic
+import play.db.anorm._
+import play.db.anorm.defaults._
+import play.Play
 
 // This does not compile with the exception below.
 // Oops: UnexpectedException
@@ -30,7 +32,9 @@ object UsersAPI extends Controller with ReadableResource[User] {
 object Users extends Controller with ReadableUserResource {
   import views.Users.html
 
-  def join() = html.join()
+  def icons = Avatar.find().as(Avatar *).map(_.name)
+
+  def join() = html.join(icons)
 
   /**
    * 新しいユーザを登録してログインするアクション
@@ -39,16 +43,25 @@ object Users extends Controller with ReadableUserResource {
     val name = params.get("name")
     val password = params.get("password")
     val email = params.get("email")
+    val icon = params.get("icon")
 
     Validation.required("name", name).message("Name is required.")
     Validation.required("email", email)
     Validation.required("password", password)
+    Validation.required("icon", icon)
     Validation.email("email", email).message("Malformed email address.")
+
+    val virtualFilePath = "public/images/avatars/" + icon + ".gif"
+    val virtualFile = Play.getVirtualFile(virtualFilePath)
+
+    if (virtualFile == null || Router.reverse(virtualFile) == null) {
+      Validation.addError("icon", "Icon not found: %s", virtualFilePath)
+    }
 
     if (Validation.hasErrors) {
       join()
     } else {
-      val user = User.join(name, password, email)
+      val user = User.join(name, password, email, "images/avatars/" + icon + ".gif")
       Cache.add(session.getId + "-user", user)
       created(user)
     }

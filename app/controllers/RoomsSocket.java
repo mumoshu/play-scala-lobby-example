@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class RoomsSocket extends WebSocketController {
     public static void join(String title, String username) {
-        User user = User.join(username, "password", "email");
+        User user = User.join(username, "password", "email", "iconPath");
         Option<Room> roomOption = Room.findByTitle(title);
         Room room = roomOption.isDefined() ? roomOption.get() : null;
         if (room == null) {

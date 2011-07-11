@@ -36,6 +36,7 @@
     type(xpath=//form//input[1], 'myName')
     type(id=password, 'myPassword')
     type(id=email, 'myName@my.email.com')
+    select(id=icon,label=madoka.+)
     submit(xpath=//form)
     waitForPageToLoad(3000)
     assertTitle('New user created')

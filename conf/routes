@@ -24,6 +24,8 @@ GET     /lobbies/?                              Lobbies.index
 
 POST    /token                                  OAuth2.token
 
+GET     /load_fixtures                          Application.loadFixtures
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

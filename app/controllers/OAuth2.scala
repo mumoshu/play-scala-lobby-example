@@ -63,7 +63,7 @@ trait OAuth {
   }
 }
 
-object OAuth2 extends Controller with OAuth {
+object OAuth2 extends Controller {
   import controllers.UsingJson._
 
   @Before

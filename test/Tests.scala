@@ -45,7 +45,8 @@ class BasicTests extends UnitFlatSpec with ShouldMatchers with FixturesFromDataY
     val email: String = "email"
     val password: String = "password"
     val name: String = "name"
-    val user = User.join(name, password, email)
+    val iconPath = "iconPath"
+    val user = User.join(name, password, email, iconPath)
     user.name should be (name)
     user.password should be (Crypto.passwordHash(password))
     user.email should be (Crypto.encryptAES(email))
@@ -76,6 +77,7 @@ class BasicTests extends UnitFlatSpec with ShouldMatchers with FixturesFromDataY
     user.name should be ("_nameOfUser1_")
     user.password should be (Crypto.passwordHash("_passwordOfUser1_"))
     user.email should be (Crypto.encryptAES("_emailOfUser1_"))
+    user.iconPath should be ("images/avatars/madoka_m.gif")
 
     achievements.size should be (1)
 

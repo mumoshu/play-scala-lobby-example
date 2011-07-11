@@ -1,4 +1,6 @@
-@()(
+@(
+    icons: List[String]
+)(
     implicit
     params: play.mvc.Scope.Params,
     errors: Map[String, play.data.validation.Error]
@@ -26,6 +28,15 @@
         <p>
             <label for="email">Email: </label>
             <input type="email" name="email" id="email" value="@params.get("email")" />
+        </p>
+
+        <p>
+            <label for="icon">Icon: </label>
+            <select name="icon" id="icon">
+                @icons.map { icon =>
+                    <option value="@icon">@icon</option>
+                }
+            </select>
         </p>
 
         <p>

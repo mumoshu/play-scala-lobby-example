@@ -40,8 +40,8 @@ object User extends Magic[User] {
   /**
    * Create and save a User.
    */
-  def join(name: String, password: String, email: String): User = create(
-    User(NotAssigned, name, Crypto.passwordHash(password), Crypto.encryptAES(email), "")
+  def join(name: String, password: String, email: String, icon: String): User = create(
+    User(NotAssigned, name, Crypto.passwordHash(password), Crypto.encryptAES(email), icon)
   )
 
   /**

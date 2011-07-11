@@ -16,7 +16,8 @@ class LobbyTest extends FunctionalFlatSpec with ShouldMatchers {
     val parameters = Map(
       "name" -> "_name_",
       "password" -> "_password_",
-      "email" -> "_email_"
+      "email" -> "_email_",
+      "icon" -> "madoka_m"
     )
     val response = POST("/users/create", parameters, Map[String, File]())
     response shouldBeOk()

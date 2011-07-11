@@ -45,3 +45,8 @@
 - !!models.WebSocketAuthorization
   userId: !!Id[Long] 1
   sessionId: sessionId1
+
+- !!models.Avatar
+  id: !!Id[Long] 1
+  name: madoka_m
+  iconPath: images/avatars/madoka_m.gif
