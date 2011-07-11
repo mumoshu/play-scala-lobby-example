@@ -1,3 +1,4 @@
+import _root_.test.FixturesFromDataYml
 import models.{WebSocketAuthorization, UserAchievement, User, Achievement}
 import play._
 import libs.Crypto
@@ -10,7 +11,7 @@ import play.db.anorm._
 import play.db.anorm.defaults._
 import play.db.anorm.SqlParser._
 
-class BasicTests extends UnitFlatSpec with ShouldMatchers {
+class BasicTests extends UnitFlatSpec with ShouldMatchers with FixturesFromDataYml {
 
     it should "create and retrieve an Achievement" in {
       val created = Achievement.create(Achievement(NotAssigned, "title", "descr", 100, "imageUrl"))
@@ -51,13 +52,7 @@ class BasicTests extends UnitFlatSpec with ShouldMatchers {
   }
 
   it should "retrieve a User with findByEmailAndPassword" in {
-    Fixtures.deleteDatabase()
-    Yaml[List[Any]]("data.yml").foreach {
-      _ match {
-        case u: User => User.create(u)
-        case _ => ()
-      }
-    }
+    deleteDatabaseAndLoadFixtures()
     val email = "_emailOfUser1_"
     val password = "_passwordOfUser1_"
     val encryptedEmail = Crypto.encryptAES(email)
@@ -75,14 +70,7 @@ class BasicTests extends UnitFlatSpec with ShouldMatchers {
   }
 
   it should "retrieve a User with an Achievement" in {
-    Fixtures.deleteDatabase()
-    Yaml[List[Any]]("data.yml").foreach {
-      _ match {
-        case u: User => User.create(u)
-        case a: Achievement => Achievement.create(a)
-        case ua: UserAchievement => UserAchievement.create(ua)
-      }
-    }
+    deleteDatabaseAndLoadFixtures()
 
     val Some(user~achievements) = User.findByIdWithAchievements(1)
     user.name should be ("_nameOfUser1_")
@@ -97,13 +85,8 @@ class BasicTests extends UnitFlatSpec with ShouldMatchers {
   }
 
   "WebSocketAuthorization" should ("retrieve a record by userId") in {
-    Fixtures.deleteDatabase()
-    Yaml[List[Any]]("data.yml").foreach {
-      _ match {
-        case w: WebSocketAuthorization => WebSocketAuthorization.create(w)
-        case _ => ()
-      }
-    }
+    deleteDatabaseAndLoadFixtures()
+
     val w = WebSocketAuthorization.findByUserId(1).get
     w should not be (null)
   }

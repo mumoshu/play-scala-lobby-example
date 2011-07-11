@@ -5,9 +5,10 @@ import play.test._
 import test.FixturesFromDataYml
 
 class UserTest extends UnitFlatSpec with ShouldMatchers with FixturesFromDataYml {
-  val accessToken = "_accessToken_"
+  val accessToken = "accessToken1"
 
   it should "find user by access token." in {
+    deleteDatabaseAndLoadFixtures()
     val user = User.findByAccessToken(accessToken)
 
     user should not be (None)

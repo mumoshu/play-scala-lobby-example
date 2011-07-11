@@ -34,7 +34,7 @@ class LobbyTest extends FunctionalFlatSpec with ShouldMatchers {
     }
     val response = GET("/api/users/1")
     response shouldBeOk()
-    response contentShouldBe ("""{"user":{"id":1,"name":"_nameOfUser1_","password":"+h2/6IXSRxB8cxvP/yfikA==","email":"455f9d5d9a5883f8c4e34eb58d970745"},"status":200}""")
+    response contentShouldBe ("""{"user":{"id":1,"name":"_nameOfUser1_","password":"+h2/6IXSRxB8cxvP/yfikA==","email":"455f9d5d9a5883f8c4e34eb58d970745","iconPath":"images/avatars/madoka_m.gif"},"status":200}""")
   }
 
   it should "retrieve users in JSON" in {

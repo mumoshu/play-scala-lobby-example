@@ -11,6 +11,7 @@ trait FixturesFromDataYml {
       case a: Achievement => Achievement.create(a)
       case s: OAuth2Session => OAuth2Session.create(s)
       case ua: UserAchievement => UserAchievement.create(ua)
+      case wa: WebSocketAuthorization => WebSocketAuthorization.create(wa)
     }
   }
 }

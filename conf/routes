@@ -5,8 +5,8 @@
 # Home page
 GET     /                                       Application.index
 
-GET     /api/users/{userId}/achievements/?      OAuth2.find
-POST    /api/users/{userId}/achievements/?      OAuth2.create
+GET     /api/users/{userId}/achievements/?      UserAchievements.find
+POST    /api/users/{<[0-9]+>userId}/achievements/? UserAchievements.create
 
 GET     /api/{controller}/{id}                  {controller}.getResource
 GET     /api/{controller}/?                     {controller}.getResources
