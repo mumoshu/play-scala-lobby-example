@@ -13,4 +13,9 @@
             <input type="submit" id="create" value="ルーム作成" />
         </ul>
     }
+    <ul>
+        @rooms.map { room =>
+            <li><a href="@action(controllers.Rooms.show(room.title, user.name))">@room.title</a></li>
+        }
+    </ul>
 }

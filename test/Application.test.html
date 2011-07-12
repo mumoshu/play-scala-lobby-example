@@ -92,4 +92,11 @@
     clickAndWait(link=lobby1)
     assertNotTitle('Application error')
 
+    *{ Join a room }*
+
+    clickAndWait(link=MyRoom)
+    assertNotTitle('Application error')
+    assertTextPresent('mumoshu')
+    assertTextPresent('MyRoom')
+
 #{/selenium}
