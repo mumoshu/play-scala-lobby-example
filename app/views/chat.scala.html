@@ -45,7 +45,7 @@
 <script type="text/javascript">
 
     // Create a socket
-    var socket = new WebSocket('ws://localhost:12345/ws/rooms/join?title=@title&username=@user')
+    var socket = new WebSocket('@utils.RouteUtil.webSocketChatRoom(title,user)');
 
     // Display a message
     var display = function(event) {
