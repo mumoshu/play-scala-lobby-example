@@ -1,6 +1,7 @@
 package controllers
 
 import play._
+import data.validation.Validation
 import libs.F.ArchivedEventStream
 import mvc._
 import mvc.Http.WebSocketEvent
@@ -17,19 +18,28 @@ object Rooms extends Controller with Secure {
 
   def create() = {
     val title: String = params.get("title")
-    val username: String = params.get("username")
-//    html.show(title, username)
+    val gameId = params.get("gameId")
+
+    Validation.required("gameId", gameId)
+
+    if (Validation.hasErrors) {
+      Action(index())
+    }
+
+    val room = Room.create(title, gameId.toLong)
     val url = {
       val params = new HashMap[String, String]
-      params.put("title", title)
-      params.put("username", username)
+      params.put("roomId", room.id.toString)
+      params.put("userId", user.id.toString)
       Router.getFullUrl("Rooms.show", params.asInstanceOf[java.util.Map[String, Object]])
     }
     Logger.info("Redirecting to: %s", url)
     Redirect(url)
   }
 
-  def show(title: String, username: String) = {
-    html.show(title, username)
+  def show(roomId: Long, userId: Long) = {
+    val room = Room.findById(roomId).get
+    val user = User.findById(userId).get
+    html.show(room, user)
   }
 }

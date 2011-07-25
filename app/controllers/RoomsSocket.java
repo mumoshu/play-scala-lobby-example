@@ -11,7 +11,6 @@ import static play.mvc.Http.WebSocketEvent.SocketClosed;
 
 import play.mvc.Http;
 import play.mvc.WebSocketController;
-import scala.Option;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,14 +19,36 @@ import java.util.List;
  * WebSocketによるチャットサーバ
  */
 public class RoomsSocket extends WebSocketController {
-    public static void join(String title, String username) {
-        User user = User.join(username, "password", "email", "iconPath");
-        Option<Room> roomOption = Room.findByTitle(title);
-        Room room = roomOption.isDefined() ? roomOption.get() : null;
-        if (room == null) {
-            Logger.info("Room created: %s", title);
-            room = Room.create(title);
+    /**
+     * エラー説明文を送信してWebSocket接続を切断する.
+     *
+     * @param description エラー説明文
+     */
+    private static void error(String description) {
+        Logger.error(description);
+        outbound.send("error:%s", description);
+        disconnect();
+    }
+
+    /**
+     * 指定したルームにユーザを参加させて, 以降, そのユーザやルーム起因のイベントをWebSocketでやりとりする.
+     *
+     * @param roomId ユーザが参加するルームのID
+     * @param userId ルームに参加させるユーザのID
+     */
+    public static void join(long roomId, long userId) {
+        User user = User.findById(userId).get();
+
+        if (user == null) {
+            error("User with id " + userId + " is not found.");
         }
+
+        Room room = Room.findById(roomId).get();
+
+        if (room == null) {
+            error("Room with id " + roomId + " is not found.");
+        }
+
         F.EventStream<Event> events = room.events().eventStream();
 
         room.join(user);
@@ -61,6 +82,10 @@ public class RoomsSocket extends WebSocketController {
                     if (what == null) {
                         Logger.warn("Nothing to say!");
                     }
+                } else {
+                    // broadcast
+                    room.broadcast(user, message);
+                    Logger.info("Broadcasting: " + message);
                 }
             }
 
@@ -74,6 +99,12 @@ public class RoomsSocket extends WebSocketController {
 
             for (Say say : ClassOf(Say.class).match(e._2)) {
                 outbound.send("said:%s:%s", say.user().name(), say.what());
+            }
+
+            for (Broadcast broadcast : ClassOf(Broadcast.class).match(e._2)) {
+                if (!user.equals(broadcast.from())) {
+                    outbound.send(broadcast.message());
+                }
             }
 
             for (Http.WebSocketClose webSocketClose : SocketClosed.match(e._1)) {

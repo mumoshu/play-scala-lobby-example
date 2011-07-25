@@ -1,4 +1,4 @@
-@(user: String, title: String)
+@(user: models.User, room: models.Room)
 
 <div id="thread">
     <script type="text/html" id="message_tmpl">
@@ -45,7 +45,7 @@
 <script type="text/javascript">
 
     // Create a socket
-    var socket = new WebSocket('@utils.RouteUtil.webSocketChatRoom(title,user)');
+    var socket = new WebSocket('@utils.RouteUtil.webSocketChatRoom(room.id, user.id())');
 
     // Display a message
     var display = function(event) {

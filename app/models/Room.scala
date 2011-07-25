@@ -2,7 +2,7 @@ package models
 
 import play.libs.F.ArchivedEventStream
 
-case class Room(title: String) {
+case class Room(id: Long, title: String, gameId: Long) {
   val events = new ArchivedEventStream[Event](100)
   val users = collection.mutable.Set[User]()
 
@@ -26,16 +26,24 @@ case class Room(title: String) {
   def play(game: Game) {
     publish(Play(game))
   }
+
+  def broadcast(user: User, message: String) {
+    publish(Broadcast(user, message))
+  }
 }
 
 object Room {
   val rooms = collection.mutable.Set[Room]()
+  var lastId: Long = 0
 
-  def create(title: String) = {
-    val room = Room(title)
+  def create(title: String, gameId: Long) = {
+    val room = Room(lastId, title, gameId)
+    lastId += 1
     rooms.add(room)
     room
   }
   def findByTitle(title: String): Option[Room] = rooms.find { _.title == title }
+  def findById(id: Long): Option[Room] = rooms.find { _.id == id }
   def all = rooms.toList
+  def forLobby(lobby: Lobby): Room = findByTitle(lobby.title).getOrElse((create(lobby.title, lobby.gameId)))
 }

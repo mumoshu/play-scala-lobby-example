@@ -20,6 +20,7 @@ class bootstrap extends Job {
         case user:User => User.create(user)
         case avatar:Avatar => Avatar.create(avatar)
         case lobby:Lobby => Lobby.create(lobby)
+        case game:Game => Game.create(game)
         case _ => ()
       }
     }

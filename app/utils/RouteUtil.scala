@@ -9,10 +9,10 @@ import java.util.HashMap
 object RouteUtil {
   import collection.JavaConversions._
 
-  def webSocketChatRoom(title: String, username: String) = {
+  def webSocketChatRoom(roomId: Long, userId: Long) = {
     val args = new HashMap[String, AnyRef]()
-    args.put("title", title)
-    args.put("username", username)
+    args.put("roomId", roomId.asInstanceOf[AnyRef])
+    args.put("userId", userId.asInstanceOf[AnyRef])
 
     val actionDefinition = Router.reverse("RoomsSocket.join", args)
     actionDefinition.absolute()

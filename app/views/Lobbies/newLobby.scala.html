@@ -1,4 +1,4 @@
-@()
+@(games: List[models.Game])
 
 @main("ロビーをつくる") {
     @form(controllers.Lobbies.create) {
@@ -6,6 +6,14 @@
             <li data-role="fieldcontain">
                 <label for="lobby.title">ロビータイトル</label>
                 <input type="text" name="lobby.title" id="lobby.title" />
+            </li>
+            <li data-role="fieldcontain">
+                <label for="game.id">ゲーム: </label>
+                <select name="game.id" id="game.id">
+                    @games.map { game =>
+                        <option value="@game.id">@game.title</option>
+                    }
+                </select>
             </li>
             <li>
                 <input type="submit" value="作成" />

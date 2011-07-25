@@ -40,3 +40,9 @@
 - !!models.Lobby
   id: !!Id[Long] 1
   title: lobby1
+  gameId: 1
+
+- !!models.Game
+  id: !!Id[Long] 1
+  title: gameTitle1
+  appUrl: http://google.com

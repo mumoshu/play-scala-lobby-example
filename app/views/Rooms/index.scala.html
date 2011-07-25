@@ -24,7 +24,7 @@
     <ul data-role="listview">
         <li data-role="list-divider">@rooms.size rooms active.</li>
         @rooms.map { room =>
-            <li><a href="@action(controllers.Rooms.show(room.title, user.name))">@room.title (@room.users.size 人)</a></li>
+            <li><a href="@action(controllers.Rooms.show(room.id, user.id()))">@room.title (@room.users.size 人)</a></li>
         }
     </ul>
 }
