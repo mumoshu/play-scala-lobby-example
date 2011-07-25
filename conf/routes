@@ -16,6 +16,7 @@ GET     /login/?                                Application.login
 
 GET     /rooms                                  Rooms.index
 
+WS      /channels/{<.+>roomId}                  RoomsSocket.join
 WS      /ws/rooms/join                          RoomsSocket.join
 
 GET     /lobbies/new                            Lobbies.newLobby
