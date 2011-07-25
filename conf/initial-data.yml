@@ -7,6 +7,13 @@
   password: gdyb21LQTcIANtvYMT7QVQ==
   iconPath: images/avatars/madoka_m.gif
 
+- !!models.User
+  id: !!Id[Long] 2
+  email: fe007e37767bb3c0d8d6bc021921c4350961e27e8b4570bc737a0ca8ed9e3065
+  name: kyoko_m
+  password: gdyb21LQTcIANtvYMT7QVQ==
+  iconPath: images/avatars/kyoko_m.gif
+
 - !!models.Avatar
   id: !!Id[Long] 1
   name: madoka_m
