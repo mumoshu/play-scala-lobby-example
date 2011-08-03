@@ -33,7 +33,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Play 1.2.x" level="application" />
-    <orderEntry type="library" name="Play Scala 0.9.x" level="application" />
+    <orderEntry type="library" name="Play Scala 0.9.1" level="application" />
   </component>
 </module>
 

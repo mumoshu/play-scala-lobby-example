@@ -31,7 +31,7 @@ object Lobbies extends Controller with Secure with ReadableResource[Lobby] {
     Validation.required("lobbyTitle", lobbyTitle)
     Validation.required("gameId", gameId)
 
-    val lobby = Lobby.create(Lobby(NotAssigned, lobbyTitle, gameId.toLong))
+    val lobby = Lobby.create(Lobby(NotAssigned, lobbyTitle, gameId.toLong)).get
     show(lobby.id())
   }
 
