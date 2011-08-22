@@ -52,4 +52,5 @@
 - !!models.Game
   id: !!Id[Long] 1
   title: gameTitle1
-  appUrl: http://google.com
+  appUrl: tetris://
+
