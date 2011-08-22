@@ -26,7 +26,7 @@ object Rooms extends Controller with Secure {
       Action(index())
     }
 
-    val room = Room.create(title, gameId.toLong).get
+    val room = Room.create(title, (if (gameId == null) "1" else gameId).toLong)
     val url = {
       val params = new HashMap[String, String]
       params.put("roomId", room.id.toString)
