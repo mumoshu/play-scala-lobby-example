@@ -1,0 +1,28 @@
+%{
+    helper.Fixture.deleteDatabaseAndLoadFixtures()
+}%
+
+#{selenium}
+    *{ Login as the demo user. }*
+
+    open('/login')
+    type(id=email, 'mumoshu@example.com')
+    type(id=password, '1234')
+    clickAndWait(//input[@type="submit"])
+
+    *{ List lobbies. }*
+
+    open('/lobbies')
+    assertNotTitle('Application error')
+    assertTextPresent('lobby1')
+    clickAndWait(link=lobby1)
+    assertNotTitle('Application error')
+
+    *{ Join a room }*
+
+    clickAndWait(link=MyRoom)
+    assertNotTitle('Application error')
+    assertTextPresent('mumoshu')
+    assertTextPresent('MyRoom')
+
+#{/selenium}

@@ -32,6 +32,15 @@
   email: aa
   password: bb
 
+- !!models.User
+  id: !!Id[Long] 3
+  # mumoshu@example.com
+  email: 19aec61e694c70df8e167dee59f48d670961e27e8b4570bc737a0ca8ed9e3065
+  name: mumoshu
+  # 1234
+  password: gdyb21LQTcIANtvYMT7QVQ==
+  iconPath: images/avatars/madoka_m.gif
+
 - !!models.UserAchievement
   id: !!Id[Long] 1
   userId: 1
@@ -50,3 +59,13 @@
   id: !!Id[Long] 1
   name: madoka_m
   iconPath: images/avatars/madoka_m.gif
+
+- !!models.Game
+  id: !!Id[Long] 1
+  title: "Game1"
+  appUrl: "tetris://"
+
+- !!models.Lobby
+  id: !!Id[Long] 1
+  title: lobby1
+  gameId: 1

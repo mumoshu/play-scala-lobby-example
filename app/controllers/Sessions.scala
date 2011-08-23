@@ -29,7 +29,7 @@ object Sessions extends Controller {
       val userOption = User.findByEmailAndPassword(email, password)
       userOption match {
         case Some(user) => {
-          Cache.add(session.getId + "-user", user)
+          Cache.set(session.getId + "-user", user, "1h")
           Action(Rooms.index())
         }
         case None => {

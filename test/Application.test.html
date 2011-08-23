@@ -1,10 +1,4 @@
-*{ You can use plain selenium command using the selenium tag }*
-
-#{selenium}
-    // Open the home page, and check that no error occured
-    open('/')
-    assertNotTitle('Application error')
-#{/selenium}
+%{ helper.Fixture.deleteDatabaseAndLoadFixtures() }%
 
 #{selenium}
     *{ Login as the demo user. }*
@@ -31,12 +25,15 @@
     assertTitle('Join')
 #{/selenium}
 
+*{ ユーザ登録ができる }*
+
 #{selenium}
     open('/users/join')
     type(xpath=//form//input[1], 'myName')
     type(id=password, 'myPassword')
     type(id=email, 'myName@my.email.com')
-    select(id=icon, label=madoka.+)
+    *{ does not show up in @tests result }*
+    select(id=icon, label=regexp:madoka.+)
     submit(xpath=//form)
     waitForPageToLoad(3000)
     assertTitle('New user created')
@@ -61,6 +58,7 @@
 
     *{ Say something. }*
 
+    waitForTextPresent('joined the room')
     type(id=message, 'Hello!')
     click(id=send)
     pause(500)
