@@ -25,4 +25,8 @@
     assertTextPresent('mumoshu')
     assertTextPresent('MyRoom')
 
+    *{ ゲームを起動する }*
+    assertTextPresent('Run Game')
+    assertAttribute(link=Run Game@href, 'tetris://')
+
 #{/selenium}

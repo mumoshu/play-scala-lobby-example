@@ -1,7 +1,9 @@
-@(room: models.Room, user: models.User)
+@(room: models.Room, user: models.User, game: models.Game)
 
 @main(room.title + " - yabage") {
 <h1>You are now chatting as @user <a href="@action(controllers.Rooms.index())">Leave the chat room</a></h1>
+
+<a class="button" href="@game.appUrl">Run Game</a>
 
 <h1>@room.title</h1>
 @chat(user, room)

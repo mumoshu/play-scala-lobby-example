@@ -38,8 +38,11 @@ object Rooms extends Controller with Secure {
   }
 
   def show(roomId: Long, userId: Long) = {
-    val room = Room.findById(roomId).get
-    val user = User.findById(userId).get
-    html.show(room, user)
+    val room: Room = Room.findById(roomId).get
+    val user: User = User.findById(userId).get
+    val gameIdString: String = Option(params.get("gameId")).getOrElse("1")
+    val gameId: Long = gameIdString.toLong
+    val game: Game = Game.find("id = {id}").on("id" -> gameId).as(Game)
+    html.show(room, user, game)
   }
 }
