@@ -14,6 +14,9 @@ import response.TokenResponse
 import response.UserAchievementsResponse
 import play.Logger
 
+import play.db.anorm._
+import play.db.anorm.defaults._
+
 trait RestTestsHelpers {
   def requestWithAuthorization(header: Header) = {
     val request = new Request()
@@ -71,10 +74,10 @@ class RestTests extends FunctionalFlatSpec with ShouldMatchers with RestTestsHel
 
     val tokenResponse = read[TokenResponse](getContent(response))
 
-    val oauth2Sessions = OAuth2Session.find("userId = {userId}")
-      .on("userId" -> user.id)
-      .as(OAuth2Session *)
-    oauth2Sessions.size should be (1)
+    val numberOfSessionsForUser = OAuth2Session.count("userId = {userId}")
+      .on("userId" -> user.id())
+      .single()
+    numberOfSessionsForUser should be (1)
 
     play.Logger.info("TokenResponse: %s", tokenResponse)
     val session = OAuth2Session.find("accessToken = {accessToken}")
