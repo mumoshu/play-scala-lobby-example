@@ -40,9 +40,15 @@ object Rooms extends Controller with Secure {
   def show(roomId: Long, userId: Long) = {
     val room: Room = Room.findById(roomId).get
     val user: User = User.findById(userId).get
-    val gameIdString: String = Option(params.get("gameId")).getOrElse("1")
-    val gameId: Long = gameIdString.toLong
+    val gameIdString = Option(params.get("gameId")).getOrElse("1")
+    val gameId = gameIdString.toLong
     val game: Game = Game.find("id = {id}").on("id" -> gameId).as(Game)
-    html.show(room, user, game)
+    val maybeOAuth: Option[OAuth2Session] = OAuth2Session.findOrCreateForUser(user)
+    val maybeRunAppUrl: Option[String] = maybeOAuth.map(oauth => game.formatAppUrl(request.domain, request.port.intValue, roomId, oauth.accessToken))
+
+    maybeRunAppUrl match {
+      case Some(runAppUrl) => html.show(room, user, game, runAppUrl)
+      case None => Error("ゲーム起動URLが生成できませんでした")
+    }
   }
 }

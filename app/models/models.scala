@@ -70,7 +70,11 @@ case class Avatar(id: Pk[Long], name: String, iconPath: String)
 
 object Avatar extends Magic[Avatar]
 
-case class Game(id: Pk[Long], title: String, appUrl: String)
+case class Game(id: Pk[Long], title: String, appUrl: String) {
+  def formatAppUrl(host: String, port: Int, channel: Long, token: String): String = {
+    "%s?host=%s&port=%d&channel=%d&token=%s".format(appUrl, host, port, channel, token)
+  }
+}
 
 object Game extends Magic[Game]
 

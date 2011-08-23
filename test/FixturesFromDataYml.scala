@@ -13,6 +13,8 @@ trait FixturesFromDataYml {
       case ua: UserAchievement => UserAchievement.create(ua)
       case wa: WebSocketAuthorization => WebSocketAuthorization.create(wa)
       case avatar: Avatar => Avatar.create(avatar)
+      case game: Game => Game.create(game)
+      case _ => ()
     }
   }
 }
