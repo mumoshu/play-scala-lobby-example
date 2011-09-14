@@ -1,0 +1,15 @@
+@(user: models.User, achievements: Seq[models.Achievement])
+
+@mobile("Achievements") {
+    <div>こんにちは @user.name さん</div>
+    <ul data-role="listview" data-inset="true">
+        @for(a <- achievements) {
+            <li data-role="fieldcontain">
+                <div>
+                    <span>@a.title (@a.score)</span>
+                    <span>@a.description</span>
+                </div>
+            </li>
+        }
+    </ul>
+}

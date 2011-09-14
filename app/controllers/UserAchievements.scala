@@ -11,6 +11,7 @@ import play.db.anorm.defaults._
 
 object UserAchievements extends Controller with OAuth with Secure {
   import controllers.UsingJson._
+  import views.UserAchievements._
 
   override val needsOauthOnlyFor = Set("find", "create")
   override val needsSessionOnlyFor = Set("index")
@@ -73,5 +74,17 @@ object UserAchievements extends Controller with OAuth with Secure {
       }
     }
   }
+
+  /**
+   * List user's all achievements in a Web page.
+   */
+  def index() = html.index(
+    user,
+    SQL("""
+      select * from UserAchievement u left join Achievement a
+      where u.achievementId = a.id and u.userId = {userId}
+    """).on("userId" -> user)
+      .as(Achievement *)
+  )
 
 }
