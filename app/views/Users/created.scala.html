@@ -1,8 +1,6 @@
 @(user: models.User)
 
-@main("New user created") {
-    <a href="@action(controllers.Rooms.index())">See chat rooms</a>
-
+@mobile("New user created") {
     <hl />
     <ul>
         <li>
@@ -15,4 +13,7 @@
             <p>@play.libs.Crypto.decryptAES(user.email)</p>
         </li>
     </ul>
+
+    <a href="@action(controllers.Games.index())" data-role="button">OK</a>
+
 }
