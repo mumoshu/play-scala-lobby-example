@@ -19,7 +19,7 @@ trait Secure {
    */
   @Before(unless = Array("Lobbies.getResource", "Lobbies.getResources"))
   def ensureLogin(): play.mvc.results.Result = {
-    if (!needsSessionOnlyFor.isEmpty && needsSessionOnlyFor(request.actionMethod)) {
+    if (!needsSessionOnlyFor.isEmpty && !needsSessionOnlyFor(request.actionMethod)) {
       return Continue
     }
 

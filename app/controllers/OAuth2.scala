@@ -43,7 +43,10 @@ trait OAuth {
   def ensureAuthorized(): play.mvc.results.Result = {
     import controllers.UsingJson._
 
-    if (!needsOauthOnlyFor.isEmpty && needsOauthOnlyFor(request.actionMethod)) {
+    Logger.info("needsOauthOnlyFor: %s", needsOauthOnlyFor)
+    Logger.info("actionMethod: %s", request.actionMethod)
+
+    if (!needsOauthOnlyFor.isEmpty && !needsOauthOnlyFor(request.actionMethod)) {
       Logger.info("Skipping OAuth for actionMethod '%s'", request.actionMethod)
       return Continue;
     }
