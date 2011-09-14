@@ -30,7 +30,7 @@ object Sessions extends Controller {
       userOption match {
         case Some(user) => {
           Cache.set(session.getId + "-user", user, "1h")
-          Action(Rooms.index())
+          Action(Games.index())
         }
         case None => {
           Logger.info("not logged in ")
