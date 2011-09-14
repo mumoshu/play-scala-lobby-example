@@ -21,6 +21,8 @@ class bootstrap extends Job {
         case avatar:Avatar => Avatar.create(avatar)
         case lobby:Lobby => Lobby.create(lobby)
         case game:Game => Game.create(game)
+        case userAchievement: UserAchievement => UserAchievement.create(userAchievement)
+        case achievement: Achievement => Achievement.create(achievement)
         case _ => ()
       }
     }

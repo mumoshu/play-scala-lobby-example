@@ -8,6 +8,7 @@ import net.liftweb.json.Serialization._
 import models.{User, Achievement, UserAchievement}
 import play.db.anorm._
 import play.db.anorm.defaults._
+import play.db.anorm.SqlParser._
 
 object UserAchievements extends Controller with OAuth with Secure {
   import controllers.UsingJson._
@@ -44,7 +45,7 @@ object UserAchievements extends Controller with OAuth with Secure {
         select * from UserAchievement ua
         left join Achievement a on ua.achievementId = a.id
         where ua.userId = {userId}
-      """).on("userId" -> userId)
+      """).on("userId" -> userId.toLong)
       .as(UserAchievement ~< (Achievement *) ?)
       val response = UserAchievementsResponse(None, None, achievements)
       Json(write(response))
@@ -78,13 +79,23 @@ object UserAchievements extends Controller with OAuth with Secure {
   /**
    * List user's all achievements in a Web page.
    */
-  def index() = html.index(
-    user,
-    SQL("""
+  def index() = {
+//    val Some(userAchievements~achievements) = SQL("""
+//        select * from UserAchievement ua
+//        left join Achievement a on ua.achievementId = a.id
+//        where ua.userId = {userId}
+//      """).on("userId" -> user.id())
+//      .as(UserAchievement ~< (Achievement *) ?)
+//
+    html.index(
+      user,
+      SQL("""
       select * from UserAchievement u left join Achievement a
-      where u.achievementId = a.id and u.userId = {userId}
-    """).on("userId" -> user)
-      .as(Achievement *)
-  )
+      on u.achievementId = a.id where u.userId = {userId}
+    """).on("userId" -> user.id())
+        .as(Achievement *)
+//      achievements
+    )
+  }
 
 }

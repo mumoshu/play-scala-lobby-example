@@ -14,6 +14,18 @@
   password: gdyb21LQTcIANtvYMT7QVQ==
   iconPath: images/avatars/kyoko_m.gif
 
+- !!models.Achievement
+  id: !!Id[Long] 1
+  title: "Achievement #1"
+  description: "_description"
+  score: 100
+  imageUrl: "hoge.png"
+
+- !!models.UserAchievement
+  id: !!Id[Long] 1
+  userId: 1
+  achievementId: 1
+
 - !!models.Avatar
   id: !!Id[Long] 1
   name: madoka_m
