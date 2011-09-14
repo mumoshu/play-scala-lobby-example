@@ -11,12 +11,18 @@ trait Secure {
 
   var user: User = null
 
+  val needsSessionOnlyFor: Set[String] = Set.empty
+
   /**
    * Cookieセッションが存在してログイン状態であることを強制する.
    * ログインしていない場合はログインページへ転送する。
    */
   @Before(unless = Array("Lobbies.getResource", "Lobbies.getResources"))
-  def ensureLogin() = {
+  def ensureLogin(): play.mvc.results.Result = {
+    if (!needsSessionOnlyFor.isEmpty && needsSessionOnlyFor(request.actionMethod)) {
+      return Continue
+    }
+
     val userOption: Option[User] = Cache.get(session.getId + "-user")
     userOption match {
       case Some(user) => {

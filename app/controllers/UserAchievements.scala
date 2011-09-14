@@ -9,8 +9,11 @@ import models.{User, Achievement, UserAchievement}
 import play.db.anorm._
 import play.db.anorm.defaults._
 
-object UserAchievements extends Controller with OAuth {
+object UserAchievements extends Controller with OAuth with Secure {
   import controllers.UsingJson._
+
+  override val needsOauthOnlyFor = Set("find", "create")
+  override val needsSessionOnlyFor = Set("index")
 
   @Before
   def fixRequestInJson = {

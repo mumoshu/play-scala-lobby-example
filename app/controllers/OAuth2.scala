@@ -36,16 +36,22 @@ object UsingJson {
 trait OAuth {
   self: Controller =>
 
-  var user: Option[User] = None
+  var oauthUser: Option[User] = None
+  val needsOauthOnlyFor: Set[String] = Set.empty
 
   @Before(unless = Array("OAuth2.token"))
-  def ensureAuthorized() = {
+  def ensureAuthorized(): play.mvc.results.Result = {
     import controllers.UsingJson._
+
+    if (!needsOauthOnlyFor.isEmpty && needsOauthOnlyFor(request.actionMethod)) {
+      Logger.info("Skipping OAuth for actionMethod '%s'", request.actionMethod)
+      return Continue;
+    }
 
     val authorization = Option(request.headers.get("authorization"))
     val regex = "OAuth (.+)".r
 
-    user = authorization.map(_.value) match {
+    oauthUser = authorization.map(_.value) match {
       case Some(regex(accessToken)) =>
         User.findByAccessToken(accessToken)
       case _ =>
@@ -54,9 +60,9 @@ trait OAuth {
 
     play.Logger.info("url: %s", request.url)
     play.Logger.info("Authorization: %s", authorization)
-    play.Logger.info("User: %s", user)
+    play.Logger.info("User: %s", oauthUser)
 
-    if (user isDefined)
+    if (oauthUser isDefined)
       Continue
     else
       Error(400, write(oauth.InvalidRequest()))
