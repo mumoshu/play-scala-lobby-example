@@ -1,0 +1,19 @@
+@(user: models.User)
+
+@main("Register your game!") {
+    @form(controllers.Games.create) {
+        <ul data-role="listview" data-inset="true">
+            <li data-role="fieldcontain">
+                <label for="game.title">タイトル</label>
+                <input type="text" name="game.title" id="game.title" />
+            </li>
+            <li data-role="fieldcontain">
+                <label for="game.appUrl">ゲームURL</label>
+                <input type="text" name="game.appUrl" id="game.appUrl" />
+            </li>
+            <li>
+                <input type="submit" value="登録" />
+            </li>
+        </ul>
+    }
+}

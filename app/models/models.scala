@@ -74,6 +74,7 @@ case class Game(id: Pk[Long], title: String, appUrl: String) {
   def formatAppUrl(host: String, port: Int, channel: Long, token: String): String = {
     "%s?host=%s&port=%d&channel=%d&token=%s".format(appUrl, host, port, channel, token)
   }
+  def lobbies() = Lobby.find("gameId = {gameId}").on("gameId" -> id()).as(Lobby *)
 }
 
 object Game extends Magic[Game]

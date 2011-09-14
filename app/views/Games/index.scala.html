@@ -1,0 +1,13 @@
+@(user: models.User, games: List[models.Game])
+
+@mobile("All games") {
+    <div>こんにちは @user.name さん</div>
+    <div>We are hosting @games.size games!</div>
+    <ul data-role="listview" data-inset="true">
+        @for(game <- games) {
+            <li data-role="fieldcontain">
+                <a href="@action(controllers.Games.show(game.id()))">@game.title</a>
+            </li>
+        }
+    </ul>
+}
